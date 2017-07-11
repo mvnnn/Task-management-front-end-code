@@ -9,10 +9,6 @@ export default function projectReducer(state = initialState.projects, action) {
     return {
       projects: action.projects
     }
-    case types.CREATE_MEMBERS_SUCCESS:
-    return {
-      projects: state.projects
-    }
     case types.CREATE_PROJECTS_SUCCESS:
     function search(projects, task_title){
     for (let i=0; i < projects.length; i++) {
