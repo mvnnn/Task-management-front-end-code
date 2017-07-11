@@ -7,17 +7,36 @@ import { Button, Navbar, Grid, Row, Col, Glyphicon, Modal, form, FormGroup, Form
 
 let styles = {
   grid: {
-     display: 'block',
-    overflow: 'auto',
+    position: 'relative',
+    height: window.innerHeight,
+    width: '99%',
+    margin: "2px auto",
+    textAlign: 'left',
+    whiteSpace: 'nowrap',
+    overflowX: 'auto',
     overflowY: 'hidden',
-    whiteSpace: 'nowrap'
+    verticalAlign:'middle',
+  },
+  grid1: {
+    display: 'inline-block',
+    width: (0.15)*window.innerWidth,
+    margin: '0.5em',
+    padding: '3px',
+    whiteSpace: 'normal',
+    textAlign: 'center',
+    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+    transition: '0.3s',
+    margin: '4%',
+    height: (0.1)*window.innerHeight,
+    textAlign: 'center',
   },
   card: {
     boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
     transition: '0.3s',
     margin: '4%',
-    padding: '8%',
-    textAlign: 'center'
+    width:  (0.2)*window.innerWith,
+    height:  (0.1)*window.innerHeight,
+    textAlign: 'center',
   },
   line: {
     borderStyle: 'dotted',
@@ -26,38 +45,23 @@ let styles = {
   }
 }
 
+
 class ProjectDetails extends Component {
   constructor(props) {
    super(props);
+   this.state={
+     data: colors
+   }
   }
-
   componentDidMount = () => {
     console.log(this.props.location.state.title);
   }
 
   render() {
-    const { projects, isFetching } = this.props.projects;
-    return (
-      <div style={styles.grid}>
-      <Grid fluid={true}>
-      <Row>
-      {[...Array(5)].map((x, i) =>
-        <Col key={i} xs={10} sm={3} md={2.5} lg={3} >
-        <Row>
-        <Col xs={2} sm={1} md={1} lg={1}>
-        <div style={styles.line} className="verticalLine"></div>
-        </Col>
-        <Col xs={10} sm={10} md={10} lg={10}>
-          <p style={styles.card}>Add New Member</p>
-            </Col>
-            </Row>
-            </Col>
-       )}
-       </Row>
-      </Grid>
-      </div>
-    );
-  }
+  		return  <Board data={data} customCardLayout>
+      <CustomCard />
+      </Board>
+  	}
 }
 
 function mapStateToProps(state, ownProps) {

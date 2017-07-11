@@ -60,13 +60,13 @@ class TaskManagement extends Component {
     this.setState({ showCreateProjectModal: false });
   }
 
-  goToProjectDetails = (e, title) => {
+  goToProjectDetails = (e, title, members_task) => {
     // e.preventDefault();
     console.log("Title"+title);
     this.props.history.push({
     pathname: `projectDetails/${title}`,
     search: '',
-    state: { title: title}
+    state: { members_task: members_task}
     });
   }
 
@@ -87,7 +87,7 @@ class TaskManagement extends Component {
         {
           projects ? (
     projects.map((project, i) => {
-      return <Col key={i} xs={11} md={3} sm={5} style={styles.card} onClick={() => this.goToProjectDetails(this, project.task_title)}>
+      return <Col key={i} xs={11} md={3} sm={5} style={styles.card} onClick={() => this.goToProjectDetails(this,project.task_title, project.members_task)}>
       <h3>{project.task_title}</h3>
       <p>{project.task_description}</p>
       <h5>Total Members : {project.members}</h5>
