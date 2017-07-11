@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import {Link, browserHistory} from 'react-router';
+// import {Link, browserHistory} from 'react-router';
+import createHistory from 'history/createBrowserHistory'
+
+const history = createHistory();
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Button, Navbar, Grid, Row, Col, Glyphicon, Modal, form, FormGroup, FormControl, ControlLabel, option } from 'react-bootstrap';
 
 import * as actions from '../actions/projectActions';
 
-var styles = {
+let styles = {
   card: {
     boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
     transition: '0.3s',
@@ -57,6 +60,16 @@ class TaskManagement extends Component {
     this.setState({ showCreateProjectModal: false });
   }
 
+  goToProjectDetails = (e, title) => {
+    // e.preventDefault();
+    console.log("Title"+title);
+    this.props.history.push({
+    pathname: `projectDetails/${title}`,
+    search: '',
+    state: { title: title}
+    });
+  }
+
   render() {
     const { projects } = this.props.projects;
     return (
@@ -74,7 +87,7 @@ class TaskManagement extends Component {
         {
           projects ? (
     projects.map((project, i) => {
-      return <Col key={i} xs={11} md={3} sm={5} style={styles.card}>
+      return <Col key={i} xs={11} md={3} sm={5} style={styles.card} onClick={() => this.goToProjectDetails(this, project.task_title)}>
       <h3>{project.task_title}</h3>
       <p>{project.task_description}</p>
       <h5>Total Members : {project.members}</h5>
