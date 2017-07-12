@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import flow from 'lodash/flow';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as actions from '../actions/projectActions';
 
+import { Grid, Button, ButtonToolbar, DropdownButton, MenuItem, Row, Col} from 'react-bootstrap';
 const style = {
 	backgroundColor: 'white',
 	cursor: 'move'
@@ -23,6 +27,14 @@ let styles = {
 }
 
 class Card extends Component {
+  constructor(props) {
+   super(props);
+  }
+
+  changeStatus = (value) => {
+    this.props.actions.updateTaskStatus(this.props.projectTitle,this.props.memberName,this.props.card.id, value);
+    console.log(this.props.card.id+","+this.props.projectTitle+","+this.props.memberName);
+  }
 
 	render() {
 		const { card, isDragging, connectDragSource, connectDropTarget } = this.props;
@@ -30,15 +42,32 @@ class Card extends Component {
 
     const styleGrid = {
       margin: '4%',
-      padding: '10%',
       textAlign: 'left',
+      paddingLeft: '2%',
       cursor: 'move'
     };
 
 		return connectDragSource(connectDropTarget(
       <div style={styles.grid1}>
-      <h5 style={styleGrid}><span style={{color:'black'}}>{card.task_title}</span><br />
-        {card.task_description}</h5>
+      <div style={styleGrid}>
+        <Row className="show-grid">
+        <Col xs={6} md={6}>
+        <h6 style={{color:'black'}}>{card.task_title} </h6>
+        </Col>
+        <Col xs={4} md={4}>
+        <ButtonToolbar>
+          <DropdownButton bsSize="xsmall" title={card.status} id="dropdown-size-extra-small" >
+            <MenuItem eventKey="1" onSelect={this.changeStatus.bind(this, "Done")}>Done</MenuItem>
+            <MenuItem eventKey="2" onSelect={this.changeStatus.bind(this, "On Hold")}>On Hold</MenuItem>
+            <MenuItem eventKey="3" onSelect={this.changeStatus.bind(this, "In Process")}>In Process</MenuItem>
+            <MenuItem eventKey="4" onSelect={this.changeStatus.bind(this, "Sent")}>Sent</MenuItem>
+            <MenuItem eventKey="5" onSelect={this.changeStatus.bind(this, "Schedule")}>Schedule</MenuItem>
+          </DropdownButton>
+        </ButtonToolbar>
+        </Col>
+      </Row>
+
+        {card.task_description}</div>
       </div>
 		));
 	}
@@ -115,6 +144,16 @@ const cardTarget = {
 	}
 };
 
+function mapStateToProps(state, ownProps) {
+    return {
+      projects: state.projects
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {actions: bindActionCreators(actions, dispatch)}
+}
+
 export default flow(
 	DropTarget("CARD", cardTarget, connect => ({
 		connectDropTarget: connect.dropTarget()
@@ -122,5 +161,6 @@ export default flow(
 	DragSource("CARD", cardSource, (connect, monitor) => ({
 		connectDragSource: connect.dragSource(),
 		isDragging: monitor.isDragging()
-	}))
+	})),
+  connect(mapStateToProps, mapDispatchToProps)
 )(Card);

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 import createHistory from 'history/createBrowserHistory'
 
 const history = createHistory();
@@ -9,8 +7,7 @@ import {bindActionCreators} from 'redux';
 import Container from './Container';
 import AddMember from './addMember';
 import CreateTask from './createTask';
-import ProjectTasks from './projectTasks';
-import * as actions from '../actions/projectActions';
+import * as actions from '../actions/taskActions';
 
 let styles = {
   grid: {
@@ -41,24 +38,38 @@ let styles = {
   }
 }
 
-class projectDetails extends Component {
+class projectTasks extends React.Component {
   constructor(props) {
-   super(props);
-   this.state={
-     membersTask: []
-   }
-  }
-  componentDidMount = () => {
-    this.setState({
-      membersTask: this.props.location.state.members_task
-    })
-    console.log(this.props.location.state.members_task);
-    console.log(this.props.projects);
+    super(props);
+    this.state = {members_data: []};
+    // This line is important!
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  createTask = (e) => {
-    e.preventDefault();
-    this.props.actions.createTask();
+  handleClick = () => {
+    this.props.actions.createMember();
+  }
+
+  componentDidMount = () => {
+    let {projects} = this.props.projects;
+    console.log(projects+".."+this.props.projectTitle);
+    function searchByTitle(projects, project_title){
+    for (let i=0; i < projects.length; i++) {
+        if (projects[i].project_title === project_title) {
+            return projects[i];
+        }
+      }
+      return null;
+    }
+    let ObjectIndex1 = searchByTitle(projects, this.props.projectTitle);
+
+    console.log(ObjectIndex1.members_task);
+    let JSONObject = JSON.stringify(ObjectIndex1);
+    // let data = (this.props.projects)[ObjectIndex1].members_task;
+    // console.log("INDEX"+ projects[ObjectIndex1].members_task);
+    this.setState({
+      members_data : ObjectIndex1.members_task
+    })
   }
 
   render() {
@@ -84,34 +95,40 @@ class projectDetails extends Component {
       width:  (0.3)*window.innerWith,
       height:  (0.1)*window.innerHeight,
       textAlign: 'center',
-    	backgroundColor: 'white',
-    	cursor: 'move'
+      backgroundColor: 'white',
+      cursor: 'move'
     };
 
-    // const { projects } = this.props.projects;
-    // function searchByTitle(projects, project_title){
-    // for (let i=0; i < projects.length; i++) {
-    //     if (projects[i].project_title === project_title) {
-    //         return i;
-    //     }
-    //   }
-    //   return null;
-    // }
-    // let ObjectIndex1 = searchByTitle(projects, this.props.location.state.project_title);
+    // let {projects} = this.props.projects;
+
 
     // let members_data = projects[ObjectIndex1].membersTask;
-    let members_data = this.state.membersTask;
+    let members_data = this.state.members_data;
 
     return (
-      <div style={styles.grid}>
-        <ProjectTasks projectTitle={this.props.location.state.project_title}/>
+      <div>
+      {
+        members_data ? (
+  members_data.map((data, i) => {
+    return <div key={i} style={styles.grid1}>
+      <div style={styles.card}>
+      <h5 style={styleGrid}>{data.member_name}</h5>
+      </div>
+    <Container id={i} list={data.tasks} memberName={data.member_name} projectTitle={this.props.projectTitle} />
+    <CreateTask {...this.props} memberName={data.member_name} projectTitle={this.props.projectTitle}/>
+    </div>
+  })
+    ) : null
+      }
+      <div style={styles.grid1}>
+        <AddMember {...this.props} />
+      </div>
       </div>
     );
   }
 }
 
 function mapStateToProps(state, ownProps) {
-  console.log("aa"+state.projects);
     return {
       projects: state.projects
     }
@@ -122,5 +139,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-connect(mapStateToProps, mapDispatchToProps)(projectDetails);
-export default DragDropContext(HTML5Backend)(projectDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(projectTasks);

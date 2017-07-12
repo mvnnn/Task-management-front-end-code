@@ -9,8 +9,8 @@ import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { HashRouter as Router, Route } from 'react-router-dom';
 // import routes from './routes';
-// import ProjectDetails from './components/projectDetails';
-import App from './components/App';
+import ProjectDetails from './components/projectDetails';
+// import App from './components/App';
 import TaskManagement from './components/taskManagement';
 import {loadProjects} from './actions/projectActions';
 import registerServiceWorker from './registerServiceWorker';
@@ -24,7 +24,7 @@ render(
     <Router history={browserHistory}>
       <div>
         <Route path="/project" component={TaskManagement} />
-        <Route path="/projectDetails/:task" component={App} />
+        <Route path="/projectDetails/:task" component={ProjectDetails} />
     </div>
   </Router>
   </Provider>,

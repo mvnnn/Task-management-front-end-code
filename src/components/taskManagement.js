@@ -25,8 +25,8 @@ class TaskManagement extends Component {
    super(props);
    this.state={
      showCreateProjectModal: false,
-     taskTitle: null,
-     taskDescription: null,
+     projectTitle: null,
+     projectDescription: null,
      members: 1
    }
   }
@@ -40,11 +40,11 @@ class TaskManagement extends Component {
   }
 
   changeTaskTitle = (e) => {
-    this.setState({ taskTitle: e.target.value });
+    this.setState({ projectTitle: e.target.value });
   }
 
   changeTaskDescription = (e) => {
-    this.setState({ taskDescription: e.target.value });
+    this.setState({ projectDescription: e.target.value });
   }
 
   changeMembersOption = (e) => {
@@ -56,17 +56,17 @@ class TaskManagement extends Component {
   createProject = (e) => {
     e.preventDefault();
     // this.props.actions.loadProjects();
-    this.props.actions.createProject(this.state.taskTitle, this.state.taskDescription, this.state.members);
+    this.props.actions.createProject(this.state.projectTitle, this.state.projectDescription, this.state.members);
     this.setState({ showCreateProjectModal: false });
   }
 
-  goToProjectDetails = (e, title, members_task) => {
+  goToProjectDetails = (e, title, members_task, projects) => {
     // e.preventDefault();
     console.log("Title"+title);
     this.props.history.push({
     pathname: `projectDetails/${title}`,
     search: '',
-    state: { members_task: members_task}
+    state: { members_task: members_task, project_title: title, total_projects: projects}
     });
   }
 
@@ -87,9 +87,9 @@ class TaskManagement extends Component {
         {
           projects ? (
     projects.map((project, i) => {
-      return <Col key={i} xs={11} md={3} sm={5} style={styles.card} onClick={() => this.goToProjectDetails(this,project.task_title, project.members_task)}>
-      <h3>{project.task_title}</h3>
-      <p>{project.task_description}</p>
+      return <Col key={i} xs={11} md={3} sm={5} style={styles.card} onClick={() => this.goToProjectDetails(this,project.project_title, project.members_task, projects)}>
+      <h3>{project.project_title}</h3>
+      <p>{project.project_description}</p>
       <h5>Total Members : {project.members}</h5>
       </Col>
     })
@@ -111,20 +111,19 @@ class TaskManagement extends Component {
           <FormGroup
             controlId="formBasicText"
           >
-            <ControlLabel>Working example with validation</ControlLabel>
+            <ControlLabel>Title</ControlLabel>
             <FormControl
               type="text"
-              value={this.state.taskTitle}
               placeholder="Enter Title"
               onChange={this.changeTaskTitle}
             />
           </FormGroup>
           <FormGroup controlId="formControlsTextarea">
-            <ControlLabel>Textarea</ControlLabel>
+            <ControlLabel>Description</ControlLabel>
             <FormControl componentClass="textarea" placeholder="Start typing..." onChange={this.changeTaskDescription} />
           </FormGroup>
           <FormGroup controlId="formControlsSelect">
-            <ControlLabel>Select</ControlLabel>
+            <ControlLabel>Members</ControlLabel>
             <FormControl componentClass="select" placeholder="select" onChange={this.changeMembersOption} >
             {[...Array(20)].map((x, i) =>
                <option value={i} key={i} >{i}</option>
