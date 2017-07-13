@@ -36,6 +36,15 @@ export function updateTaskSuccess(project_title, member_name, task_id, status) {
   }
 }
 
+export function dragAndDropCardUpdateSuccess(dragListId, dropListId, cardId, project_title) {
+  return {type: types.CARD_DRAG_AND_DROP_SUCCESS,
+    dragListId,
+    dropListId,
+    cardId,
+    project_title
+  }
+}
+
 export function loadProjects() {
   return function(dispatch) {
     return ProjectApi.getAllProjects().then(projects => {
@@ -75,6 +84,17 @@ export function updateTaskStatus(project_title, member_name, task_id, status) {
   return function (dispatch) {
     return TaskApi.updateTaskStatus(project_title, member_name, task_id, status).then(responseProject => {
       dispatch(updateTaskSuccess(project_title, member_name, task_id, status));
+      return responseProject;
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
+export function dragAndDropCardUpdate(dragListId, dropListId, cardId, project_title) {
+  return function (dispatch) {
+    return TaskApi.dragAndDropCardUpdate(dragListId, dropListId, cardId, project_title).then(responseProject => {
+      dispatch(dragAndDropCardUpdateSuccess(dragListId, dropListId, cardId, project_title));
       return responseProject;
     }).catch(error => {
       throw(error);

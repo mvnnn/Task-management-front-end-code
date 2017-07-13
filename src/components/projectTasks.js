@@ -41,18 +41,36 @@ let styles = {
 class projectTasks extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {members_data: []};
-    // This line is important!
-    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      members_data: this.props.membersData
+    };
   }
 
-  handleClick = () => {
-    this.props.actions.createMember();
-  }
+  // componentDidMount = () => {
+  //   let {projects} = this.props.projects;
+  //   console.log(projects+".."+this.props.projectTitle);
+  //   function searchByTitle(projects, project_title){
+  //   for (let i=0; i < projects.length; i++) {
+  //       if (projects[i].project_title === project_title) {
+  //           return projects[i];
+  //       }
+  //     }
+  //     return null;
+  //   }
+  //   let ObjectIndex1 = searchByTitle(projects, this.props.projectTitle);
+  //
+  //   console.log(typeof ObjectIndex1.members_task);
+  //   let JSONObject = JSON.stringify(ObjectIndex1);
+  //   // let data = (this.props.projects)[ObjectIndex1].members_task;
+  //   // console.log("INDEX"+ projects[ObjectIndex1].members_task);
+  //   this.setState({
+  //     members_data : ObjectIndex1.members_task
+  //   })
+  // }
 
-  componentDidMount = () => {
-    let {projects} = this.props.projects;
-    console.log(projects+".."+this.props.projectTitle);
+  componentWillReceiveProps = (nextProps) => {
+    let {projects} = nextProps.projects;
+    console.log("update====>"+projects+".."+nextProps.projectTitle);
     function searchByTitle(projects, project_title){
     for (let i=0; i < projects.length; i++) {
         if (projects[i].project_title === project_title) {
@@ -61,16 +79,18 @@ class projectTasks extends React.Component {
       }
       return null;
     }
-    let ObjectIndex1 = searchByTitle(projects, this.props.projectTitle);
+    let ObjectIndex1 = searchByTitle(projects, nextProps.projectTitle);
 
-    console.log(ObjectIndex1.members_task);
+    console.log("Update"+JSON.stringify(ObjectIndex1.members_task));
     let JSONObject = JSON.stringify(ObjectIndex1);
     // let data = (this.props.projects)[ObjectIndex1].members_task;
     // console.log("INDEX"+ projects[ObjectIndex1].members_task);
+    // this.forceUpdate(ObjectIndex1.members_task);
     this.setState({
       members_data : ObjectIndex1.members_task
-    })
+    });
   }
+
 
   render() {
     const style = {
@@ -101,20 +121,18 @@ class projectTasks extends React.Component {
 
     // let {projects} = this.props.projects;
 
-
-    // let members_data = projects[ObjectIndex1].membersTask;
     let members_data = this.state.members_data;
 
     return (
       <div>
       {
-        members_data ? (
-  members_data.map((data, i) => {
+        this.state.members_data ? (
+  this.state.members_data.map((data, i) => {
     return <div key={i} style={styles.grid1}>
       <div style={styles.card}>
       <h5 style={styleGrid}>{data.member_name}</h5>
       </div>
-    <Container id={i} list={data.tasks} memberName={data.member_name} projectTitle={this.props.projectTitle} />
+    <Container id={i} CNumber={i} list={data.tasks} memberName={data.member_name} projectTitle={this.props.projectTitle} />
     <CreateTask {...this.props} memberName={data.member_name} projectTitle={this.props.projectTitle}/>
     </div>
   })

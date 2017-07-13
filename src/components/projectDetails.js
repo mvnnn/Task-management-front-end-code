@@ -104,7 +104,7 @@ class projectDetails extends Component {
 
     return (
       <div style={styles.grid}>
-        <ProjectTasks projectTitle={this.props.location.state.project_title}/>
+        <ProjectTasks membersData={members_data} projectTitle={this.props.location.state.project_title}/>
       </div>
     );
   }

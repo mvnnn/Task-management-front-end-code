@@ -76,6 +76,7 @@ class Card extends Component {
 const cardSource = {
 
 	beginDrag(props) {
+    // console.log(props.index, props.listId, props.card);
 		return {
 			index: props.index,
 			listId: props.listId,
@@ -88,6 +89,8 @@ const cardSource = {
 		const dropResult = monitor.getDropResult();
 
 		if ( dropResult && dropResult.listId !== item.listId ) {
+      // console.log(props.index+","+props.listId+","+props.card.id+","+item.index+","+dropResult.listId);
+      props.actions.dragAndDropCardUpdate(props.listId, dropResult.listId, props.card.id, props.projectTitle);
 			props.removeCard(item.index);
 		}
 	}
@@ -134,7 +137,6 @@ const cardTarget = {
 		// Time to actually perform the action
 		if ( props.listId === sourceListId ) {
 			props.moveCard(dragIndex, hoverIndex);
-
 			// Note: we're mutating the monitor item here!
 			// Generally it's better to avoid mutations,
 			// but it's good here for the sake of performance

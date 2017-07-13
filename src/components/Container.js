@@ -2,13 +2,44 @@ import React, { Component } from 'react';
 import update from 'react/lib/update';
 import Card from './Card';
 import { DropTarget } from 'react-dnd';
+import flow from 'lodash/flow';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as actions from '../actions/projectActions';
 
 class Container extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { cards: props.list };
+		this.state = { cards: [] };
 	}
+
+  componentDidMount () {
+    this.setState({ cards: this.props.list });
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    const { projects } = this.props.projects;
+    // console.log("updateCCCC====>"+projects+".."+nextProps.projectTitle);
+    // function searchByTitle(projects, project_title){
+    // for (let i=0; i < projects.length; i++) {
+    //     if (projects[i].project_title === project_title) {
+    //         return projects[i];a
+    //     }
+    //   }
+    //   return null;
+    // }
+    // let ObjectIndex1 = searchByTitle(projects, nextProps.projectTitle);
+    //
+    // console.log("Update"+JSON.stringify(ObjectIndex1.members_task));
+    // let JSONObject = JSON.stringify(ObjectIndex1);
+    // let data = (this.props.projects)[ObjectIndex1].members_task;
+    // console.log("INDEX"+ projects[ObjectIndex1].members_task);
+    // this.forceUpdate(ObjectIndex1.members_task);
+    // this.setState({
+    //   cards : nextProps.list
+    // });
+  }
 
 	pushCard(card) {
 		this.setState(update(this.state, {
@@ -29,8 +60,8 @@ class Container extends Component {
 	}
 
 	moveCard(dragIndex, hoverIndex) {
-		const { cards } = this.state;
-		const dragCard = cards[dragIndex];
+		let { cards } = this.state;
+		let dragCard = cards[dragIndex];
 
 		this.setState(update(this.state, {
 			cards: {
@@ -43,9 +74,9 @@ class Container extends Component {
 	}
 
 	render() {
-		const { cards } = this.state;
-		const { canDrop, isOver, connectDropTarget } = this.props;
-		const isActive = canDrop && isOver;
+		let { cards } = this.state;
+		let { canDrop, isOver, connectDropTarget } = this.props;
+		let isActive = canDrop && isOver;
 		const style = {
 			width: (0.17)*window.innerWidth,
 		};
@@ -84,8 +115,21 @@ const cardTarget = {
 	}
 }
 
-export default DropTarget("CARD", cardTarget, (connect, monitor) => ({
-	connectDropTarget: connect.dropTarget(),
-	isOver: monitor.isOver(),
-	canDrop: monitor.canDrop()
-}))(Container);
+function mapStateToProps(state, ownProps) {
+    return {
+      projects: state.projects
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {actions: bindActionCreators(actions, dispatch)}
+}
+
+export default flow(
+  DropTarget("CARD", cardTarget, (connect, monitor) => ({
+  	connectDropTarget: connect.dropTarget(),
+  	isOver: monitor.isOver(),
+  	canDrop: monitor.canDrop()
+  })),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Container);

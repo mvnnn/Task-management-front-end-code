@@ -28,6 +28,21 @@ class TaskApi {
     });
   }
 
+  static dragAndDropCardUpdate(dragListId, dropListId, cardId, project_title) {
+    return fetch('http://localhost:4000/dragAndDropCard', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({dragListId, dropListId, cardId, project_title})}).then(response => {
+      return response.json();
+    }).catch(error => {
+      return error;
+    });
+  }
+
+
 }
 
 export default TaskApi;

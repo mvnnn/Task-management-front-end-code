@@ -108,7 +108,6 @@ export default function projectReducer(state = initialState.projects, action) {
     function searchByTask(tasks, id){
       for (let i=0; i < tasks.length; i++) {
         if (tasks[i].id === id) {
-          console.log("I"+state.projects[ProjectObjectIndex].members_task[MemberObjectIndex].tasks[i]);
 
           state.projects[ProjectObjectIndex].members_task[MemberObjectIndex].tasks[i] =  {
             task_title : tasks[i].task_title,
@@ -123,7 +122,47 @@ export default function projectReducer(state = initialState.projects, action) {
     }
     let ObjectIndex3 = searchByTask(state.projects[ProjectObjectIndex].members_task[MemberObjectIndex].tasks, action.task_id);
 
-    console.log(state.projects[ProjectObjectIndex]);
+    // console.log("Update"+state.projects);
+
+    return {
+      projects: state.projects
+    }
+
+    case types.CARD_DRAG_AND_DROP_SUCCESS:
+
+    function searchByTitle(projects, project_title){
+    for (let i=0; i < projects.length; i++) {
+        if (projects[i].project_title === project_title) {
+            return i;
+        }
+      }
+      return null;
+    }
+    let ProjectObjectIndex1 = searchByTitle(state.projects, action.project_title);
+
+    // console.log(state.projects[ProjectObjectIndex1].members_task[action.dragListId]);
+
+    function searchByTask(tasks, id){
+      for (let i=0; i < tasks.length; i++) {
+        if (tasks[i].id === id) {
+
+          state.projects[ProjectObjectIndex1].members_task[action.dropListId].tasks.push({
+                  task_title : tasks[i].task_title,
+                  task_description : tasks[i].task_description,
+                  status : tasks[i].status,
+                  id : tasks[i].id
+                });
+
+          state.projects[ProjectObjectIndex1].members_task[action.dragListId].tasks.splice(i, 1);
+
+          return i;
+        }
+      }
+      return null;
+    }
+    searchByTask(state.projects[ProjectObjectIndex1].members_task[action.dragListId].tasks, action.cardId);
+
+    // console.log("DRAG"+state.projects[ProjectObjectIndex1].members_task[action.dropListId]);
 
     return {
       projects: state.projects
