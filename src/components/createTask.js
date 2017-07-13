@@ -9,30 +9,12 @@ import { Button, Navbar, Grid, Row, Col, Glyphicon, Modal, form, FormGroup, Form
 import * as actions from '../actions/projectActions';
 
 let styles = {
-  grid: {
-    width: '99%',
-    margin: "2px auto",
-    whiteSpace: 'nowrap',
-    overflowX: 'auto',
-    overflowY: 'hidden'
-  },
-  grid1: {
-    display: 'inline-block',
-    width: (0.17)*window.innerWidth,
-    whiteSpace: 'normal',
-    transition: '0.3s',
-    margin: '5%',
-    height: (0.1)*window.innerHeight,
-  },
   card: {
     boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
     transition: '0.3s',
-    textAlign: 'center'
-  },
-  line: {
-    borderStyle: 'dotted',
-    height: window.innerHeight,
-    width: '1px'
+    textAlign: 'center',
+    width: '100%',
+    backgroundColor: '#f2f2f2',
   }
 }
 
@@ -104,7 +86,8 @@ class createTask extends React.Component {
     return (
       <div>
       <div style={styles.card} onClick={this.openCreateTaskModal}>
-      <h5 style={styleGrid}>Create Task</h5>
+      <h5 style={styleGrid}><Glyphicon glyph="plus-sign" /><br />
+      Create Task</h5>
       </div>
 
               <Modal backdrop={false} show={this.state.showCreateTaskModal} onHide={this.closeCreateTaskModal}>

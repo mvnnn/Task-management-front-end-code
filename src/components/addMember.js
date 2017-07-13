@@ -64,7 +64,7 @@ class addMember extends React.Component {
     const styleGrid = {
       margin: '4%',
       padding: '10%',
-      textAlign: 'center'
+      textAlign: 'center',
     };
     return (<div>
       <div style={styles.card} onClick={this.openCreateMemberModal}>

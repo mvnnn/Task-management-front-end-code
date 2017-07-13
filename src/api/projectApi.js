@@ -7,14 +7,14 @@ class ProjectApi {
     });
   }
 
-  static createProject(task_title, task_description, members) {
+  static createProject(project_title, project_description, members) {
     return fetch('http://localhost:4000/project', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({task_title, task_description, members})}).then(response => {
+      body: JSON.stringify({project_title, project_description, members})}).then(response => {
       return response.json();
     }).catch(error => {
       return error;

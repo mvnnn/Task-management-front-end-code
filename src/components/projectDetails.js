@@ -14,7 +14,7 @@ import * as actions from '../actions/projectActions';
 
 let styles = {
   grid: {
-    width: '99%',
+    width: '100%',
     margin: "2px auto",
     whiteSpace: 'nowrap',
     overflowX: 'auto',

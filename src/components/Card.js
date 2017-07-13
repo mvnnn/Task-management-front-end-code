@@ -23,7 +23,14 @@ let styles = {
     marginTop: '4%',
     cursor: 'move',
     backgroundColor: '#f2f2f2'
-  }
+  },
+  card: {
+    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+    transition: '0.3s',
+    textAlign: 'center',
+    width: '120%',
+    backgroundColor: '#f2f2f2'
+  },
 }
 
 class Card extends Component {
@@ -40,23 +47,83 @@ class Card extends Component {
 		const { card, isDragging, connectDragSource, connectDropTarget } = this.props;
 		const opacity = isDragging ? 0 : 1;
 
-    const styleGrid = {
-      margin: '4%',
+    let Color = "#00b386";
+
+    if(card.status === "Done"){
+      Color = "#00b386";
+    }
+    else if(card.status === "On Hold"){
+      Color = "#ff9900";
+    }
+    else if(card.status === "In Process"){
+      Color = "#00cc00";
+    }
+    else if(card.status === "Sent"){
+      Color = "#9900ff";
+    }
+    else if(card.status === "Schedule"){
+      Color = "#ff0066";
+    }
+
+    const grid1 =  {
+
+      display: 'inline-block',
+      width: (0.17)*window.innerWidth,
+      whiteSpace: 'normal',
       textAlign: 'left',
-      paddingLeft: '2%',
-      cursor: 'move'
+      boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+      transition: '0.3s',
+      marginTop: '4%',
+      cursor: 'move',
+      backgroundColor: '#f2f2f2',
+      borderLeft : `2px solid ${Color}`
     };
 
+    const cardStyle = {
+      boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+      transition: '0.3s',
+      textAlign: 'center',
+      width: '100%',
+      backgroundColor: '#f2f2f2',
+      borderLeft : `2px solid ${Color}`
+    };
+
+    const statusButton = {
+      backgroundColor: `${Color}`,
+      color: 'white',
+      borderRadius: '30px',
+      fontSize: '80%'
+    };
+
+    const buttonBackground = {
+      position: 'relative',
+      marginTop: '6px'
+    }
+
+    const styleGrid = {
+      margin: '5%',
+      padding: '5%',
+      textAlign: 'left',
+    };
+
+    // const styleGrid = {
+    //   margin: '4%',
+    //   textAlign: 'left',
+    //   paddingLeft: '2%',
+    //   cursor: 'move',
+    //   width: '120%'
+    // };
+
 		return connectDragSource(connectDropTarget(
-      <div style={styles.grid1}>
+      <div style={cardStyle}>
       <div style={styleGrid}>
         <Row className="show-grid">
         <Col xs={6} md={6}>
-        <h6 style={{color:'black'}}>{card.task_title} </h6>
+        <h6 style={{color:'black', fontSize:'bold'}}>{card.task_title} </h6>
         </Col>
         <Col xs={4} md={4}>
-        <ButtonToolbar>
-          <DropdownButton bsSize="xsmall" title={card.status} id="dropdown-size-extra-small" >
+        <ButtonToolbar style={buttonBackground}>
+          <DropdownButton style={statusButton} bsStyle={statusButton} bsSize="xsmall" title={card.status} id="dropdown-size-extra-small" >
             <MenuItem eventKey="1" onSelect={this.changeStatus.bind(this, "Done")}>Done</MenuItem>
             <MenuItem eventKey="2" onSelect={this.changeStatus.bind(this, "On Hold")}>On Hold</MenuItem>
             <MenuItem eventKey="3" onSelect={this.changeStatus.bind(this, "In Process")}>In Process</MenuItem>
@@ -67,7 +134,7 @@ class Card extends Component {
         </Col>
       </Row>
 
-        {card.task_description}</div>
+        <div style={{fontSize:'10'}}>{card.task_description}</div></div>
       </div>
 		));
 	}

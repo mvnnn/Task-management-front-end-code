@@ -19,23 +19,6 @@ class Container extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    // const { projects } = this.props.projects;
-    // console.log("updateCCCC====>"+projects+".."+nextProps.projectTitle);
-    // function searchByTitle(projects, project_title){
-    // for (let i=0; i < projects.length; i++) {
-    //     if (projects[i].project_title === project_title) {
-    //         return projects[i];a
-    //     }
-    //   }
-    //   return null;
-    // }
-    // let ObjectIndex1 = searchByTitle(projects, nextProps.projectTitle);
-    //
-    // console.log("Update"+JSON.stringify(ObjectIndex1.members_task));
-    // let JSONObject = JSON.stringify(ObjectIndex1);
-    // let data = (this.props.projects)[ObjectIndex1].members_task;
-    // console.log("INDEX"+ projects[ObjectIndex1].members_task);
-    // this.forceUpdate(ObjectIndex1.members_task);
     this.setState({
       cards : this.props.list
     });

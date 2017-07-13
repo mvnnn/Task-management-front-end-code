@@ -13,10 +13,21 @@ let styles = {
   card: {
     boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
     transition: '0.3s',
-    margin: '4%'
+    margin: '3%',
+    padding: '1%',
+    paddingLeft: '2%',
   },
   container: {
     padding: "2px 16px"
+  },
+  addProjectCard: {
+    boxShadow: "0 4px 8px 2px rgba(0,0,0,0.2)",
+    transition: '0.3s',
+    margin: '3%',
+    padding: '3%',
+    textAlign: 'center',
+    paddingTop: '4%',
+    paddingBottom: '4%'
   }
 }
 
@@ -74,15 +85,17 @@ class TaskManagement extends Component {
     const { projects } = this.props.projects;
     return (
       <div>
-      <Navbar>
+      <div style={{backgroundColor:'#00b386', borderColor: '#030033'}}>
+      <Navbar bsStyle={{backgroundColor:'#00b386'}} fixedTop={true} style={{backgroundColor:'#00b386', padding:'1%'}}>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#">Task Management</a>
+            <a href="#" bsStyle={{color:'white'}} style={{color:'white', fontSize:"25"}}>Task Management</a>
           </Navbar.Brand>
         </Navbar.Header>
       </Navbar>
+      </div>
 
-      <Grid>
+      <Grid style={{marginTop:'6%'}}>
       <Row className="show-grid">
         {
           projects ? (
@@ -95,9 +108,9 @@ class TaskManagement extends Component {
     })
       ) : null
         }
-        <Col xs={11} md={3} sm={5} style={styles.card} onClick={this.openCreateProjectModal}>
-        <Glyphicon glyph="plus-sign" />
-        <h5>Create New Project</h5>
+        <Col xs={11} md={3} sm={5} style={styles.addProjectCard} onClick={this.openCreateProjectModal}>
+          <Glyphicon glyph="plus-sign" />
+          <h5>Create New Project</h5>
         </Col>
         </Row>
         </Grid>

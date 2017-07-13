@@ -10,28 +10,28 @@ export default function projectReducer(state = initialState.projects, action) {
       projects: action.projects
     }
     case types.CREATE_PROJECTS_SUCCESS:
-    function search(projects, task_title){
+    function search(projects, project_title){
     for (let i=0; i < projects.length; i++) {
-        if (projects[i].task_title === task_title) {
+        if (projects[i].project_title === project_title) {
             return i;
         }
       }
       return null;
     }
-    let ObjectIndex = search(state.projects, action.task_title);
+    let ObjectIndex = search(state.projects, action.project_title);
 
     if(ObjectIndex != null){
       state.projects[ObjectIndex] = {
-        project_title: action.task_title,
-        project_description: action.task_description,
+        project_title: action.project_title,
+        project_description: action.project_description,
         members: action.members,
         members_task: []
       }
     }
     else{
       state.projects.push({
-        project_title: action.task_title,
-        project_description: action.task_description,
+        project_title: action.project_title,
+        project_description: action.project_description,
         members: action.members,
         members_task: []
       });

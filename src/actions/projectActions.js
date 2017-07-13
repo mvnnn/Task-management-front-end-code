@@ -8,10 +8,10 @@ export function loadProjectSuccess(projects) {
 }
 
 
-export function createProjectSuccess(task_title, task_description, members) {
+export function createProjectSuccess(project_title, project_description, members) {
   return {type: types.CREATE_PROJECTS_SUCCESS,
-    task_title,
-    task_description,
+    project_title,
+    project_description,
     members
   }
 }
@@ -64,10 +64,10 @@ export function loadProjects() {
   };
 }
 
-export function createProject(task_title, task_description, members) {
+export function createProject(project_title, project_description, members) {
   return function (dispatch) {
-    return ProjectApi.createProject(task_title, task_description, members).then(responseProject => {
-      dispatch(createProjectSuccess(task_title, task_description, members));
+    return ProjectApi.createProject(project_title, project_description, members).then(responseProject => {
+      dispatch(createProjectSuccess(project_title, project_description, members));
       return responseProject;
     }).catch(error => {
       throw(error);
