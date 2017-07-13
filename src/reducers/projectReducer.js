@@ -72,7 +72,7 @@ export default function projectReducer(state = initialState.projects, action) {
             id: action.task_id
           });
 
-    console.log(state.projects[ObjectIndex1].members_task[0]);
+    // console.log(state.projects[ObjectIndex1].members_task[0]);
 
     return {
       projects: state.projects
@@ -103,7 +103,7 @@ export default function projectReducer(state = initialState.projects, action) {
     }
     let MemberObjectIndex = searchByName(state.projects[ProjectObjectIndex].members_task, action.member_name);
 
-    console.log(state.projects[ProjectObjectIndex].members_task[MemberObjectIndex]);
+    // console.log(state.projects[ProjectObjectIndex].members_task[MemberObjectIndex]);
 
     function searchByTask(tasks, id){
       for (let i=0; i < tasks.length; i++) {

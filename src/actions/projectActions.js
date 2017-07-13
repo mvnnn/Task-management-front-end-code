@@ -3,7 +3,7 @@ import ProjectApi from '../api/projectApi';
 import TaskApi from '../api/taskApi';
 
 export function loadProjectSuccess(projects) {
-  console.log(projects);
+  // console.log(projects);
   return {type: types.LOAD_PROJECTS_SUCCESS, projects};
 }
 
@@ -77,7 +77,7 @@ export function createProject(project_title, project_description, members) {
 
 
 export function createTask(task_title, task_description, task_status, member_name, project_title, task_id) {
-  console.log(task_title+","+task_description+","+task_status+","+member_name+","+project_title+","+task_id);
+  // console.log(task_title+","+task_description+","+task_status+","+member_name+","+project_title+","+task_id);
   return function (dispatch) {
     return TaskApi.createTask(task_title, task_description, task_status, member_name, project_title,task_id).then(responseProject => {
       dispatch(createTaskSuccess(task_title, task_description, task_status, member_name, project_title,task_id));

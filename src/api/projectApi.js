@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch';
+
 class ProjectApi {
   static getAllProjects() {
     return fetch('http://localhost:4000/project').then(response => {

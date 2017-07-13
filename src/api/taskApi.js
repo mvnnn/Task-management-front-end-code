@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch';
+
 class TaskApi {
 
   static createTask(task_title, task_description, task_status, member_name, project_title, task_id) {
