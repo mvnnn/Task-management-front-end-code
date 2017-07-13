@@ -117,7 +117,7 @@ class projectTasks extends React.Component {
         <Navbar bsStyle={{backgroundColor:'#00b386'}} fixedTop={true} style={{backgroundColor:'#00b386', padding:'1%'}}>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#" bsStyle={{color:'white'}} style={{color:'white', fontSize:"25"}}>Task Management</a>
+              <a href="#" bsStyle={{color:'white'}} style={{color:'white', fontSize:"25"}}>{this.props.projectTitle}</a>
             </Navbar.Brand>
           </Navbar.Header>
         <Nav style={{paddingTop: '1%'}} pullRight >

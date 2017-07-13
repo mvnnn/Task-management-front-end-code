@@ -27,7 +27,9 @@ class createTask extends React.Component {
       showCreateTaskModal: false,
       taskTitle: null,
       taskDescription: null,
-      taskStatus: "Done"
+      taskStatus: "Done",
+      taskTitleStatus: null,
+      taskDescriptionStatus: null
     }
     this.openCreateTaskModal = this.openCreateTaskModal.bind(this);
     this.idGenerator = this.idGenerator.bind(this);
@@ -38,7 +40,7 @@ class createTask extends React.Component {
   }
 
   closeCreateTaskModal = () => {
-    this.setState({ showCreateTaskModal: false });
+    this.setState({ showCreateTaskModal: false, taskTitle:null, taskDescription:null, taskTitleStatus: null,  taskDescriptionStatus: null });
   }
 
   openCreateTaskModal = () => {
@@ -46,11 +48,21 @@ class createTask extends React.Component {
   }
 
   changeTaskTitle = (e) => {
-    this.setState({ taskTitle: e.target.value });
+    let length = e.target.value.length;
+    let Status = 'success';
+    if (length <= 0){
+      Status = 'error'
+    }
+    this.setState({ taskTitle: e.target.value, taskTitleStatus:Status});
   }
 
   changeTaskDescription = (e) => {
-    this.setState({ taskDescription: e.target.value });
+    let length = e.target.value.length;
+    let Status = 'success';
+    if (length <= 0){
+      Status = 'error'
+    }
+    this.setState({ taskDescription: e.target.value, taskDescriptionStatus:Status});
   }
 
   changeTaskStatus = (e) => {
@@ -71,9 +83,19 @@ class createTask extends React.Component {
 
   createTask = (e) => {
     e.preventDefault();
+
+    if(this.state.taskTitleStatus == null){
+      this.setState({taskTitleStatus: 'error'});
+    }
+
+    if(this.state.taskDescriptionStatus == null){
+      this.setState({taskDescriptionStatus: 'error'});
+    }
+    else if(this.state.taskTitleStatus == 'success' && this.state.taskTitleStatus == 'success' ){
     let task_id = this.idGenerator(5) + this.state.taskTitle + this.idGenerator(5);
     this.props.actions.createTask(this.state.taskTitle, this.state.taskDescription, this.state.taskStatus, this.props.memberName, this.props.projectTitle, task_id);
-    this.setState({ showCreateTaskModal: false });
+    this.setState({ showCreateTaskModal: false, taskTitle:null, taskDescription:null, taskTitleStatus: null,  taskDescriptionStatus: null});
+  }
   }
 
   render() {
@@ -98,6 +120,7 @@ class createTask extends React.Component {
                 <form>
                 <FormGroup
                   controlId="formBasicText"
+                  validationState={this.state.taskTitleStatus}
                 >
                   <ControlLabel>Title</ControlLabel>
                   <FormControl
@@ -107,7 +130,7 @@ class createTask extends React.Component {
                     onChange={this.changeTaskTitle}
                   />
                 </FormGroup>
-                <FormGroup controlId="formControlsTextarea">
+                <FormGroup controlId="formControlsTextarea" validationState={this.state.taskDescriptionStatus}>
                   <ControlLabel>Description</ControlLabel>
                   <FormControl componentClass="textarea" placeholder="Start typing..." onChange={this.changeTaskDescription} />
                 </FormGroup>

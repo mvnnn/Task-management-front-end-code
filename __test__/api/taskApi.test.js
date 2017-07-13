@@ -82,7 +82,7 @@ describe('async actions in task', () => {
 
   it('update CARD_DRAG_AND_DROP_SUCCESS when update cards', () => {
     nock('http://localhost:4000')
-      .post('/updateTaskStatus', {
+      .post('/dragAndDropCard', {
                   dragListId : 1,
                   dropListId : 0,
                   cardId: 'aer25Test TaskUt5Y9',
@@ -112,7 +112,7 @@ describe('async actions in task', () => {
 
   it('create CREATE_MEMBERS_SUCCESS when add member done', () => {
     nock('http://localhost:4000')
-      .post('/updateTaskStatus', {
+      .post('/member', {
                   member_name: 'Alex Merchant',
                   project_title: 'Publishing'
                 })
@@ -122,7 +122,7 @@ describe('async actions in task', () => {
                 })
 
     const expectedActions = [
-      { type: types.CREATE_MEMBERS_SUCCESS, member_name: 'Alex Merchant', 
+      { type: types.CREATE_MEMBERS_SUCCESS, member_name: 'Alex Merchant',
         project_title: 'Publishing'}
     ]
     const store = mockStore({  member_name: null, project_title: null})

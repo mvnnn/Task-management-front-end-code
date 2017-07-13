@@ -36,26 +36,39 @@ class TaskManagement extends Component {
    super(props);
    this.state={
      showCreateProjectModal: false,
-     projectTitle: null,
-     projectDescription: null,
+     projectTitle: '',
+     projectDescription: '',
+     projectTitleStatus: null,
+     projectDescriptionStatus: null,
      members: 1
    }
   }
 
   closeCreateProjectModal = () => {
-    this.setState({ showCreateProjectModal: false });
+    this.setState({ showCreateProjectModal: false, projectTitle:null, projectDescription:null,projectTitleStatus: null, projectDescriptionStatus:null });
   }
 
   openCreateProjectModal = () => {
     this.setState({ showCreateProjectModal: true });
   }
 
-  changeTaskTitle = (e) => {
-    this.setState({ projectTitle: e.target.value });
-  }
+  changeProjectTitle = (e) => {
+    // console.log("func"+e.target.value);
+    let length = e.target.value.length;
+    let Status = 'success';
+    if (length <= 0){
+      Status = 'error'
+    }
+        this.setState({ projectTitle: e.target.value, projectTitleStatus:Status});
+      }
 
-  changeTaskDescription = (e) => {
-    this.setState({ projectDescription: e.target.value });
+  changeProjectDescription = (e) => {
+    let length = e.target.value.length;
+    let Status = 'success';
+    if (length <= 0){
+      Status = 'error'
+    }
+    this.setState({ projectDescription: e.target.value, projectDescriptionStatus:Status});
   }
 
   changeMembersOption = (e) => {
@@ -67,8 +80,17 @@ class TaskManagement extends Component {
   createProject = (e) => {
     e.preventDefault();
     // this.props.actions.loadProjects();
+    if(this.state.projectTitleStatus == null){
+      this.setState({projectTitleStatus: 'error'});
+    }
+
+    if(this.state.projectDescriptionStatus == null){
+      this.setState({projectDescriptionStatus: 'error'});
+    }
+    else if(this.state.projectTitleStatus == 'success' && this.state.projectDescriptionStatus == 'success' ){
     this.props.actions.createProject(this.state.projectTitle, this.state.projectDescription, this.state.members);
-    this.setState({ showCreateProjectModal: false });
+    this.setState({ showCreateProjectModal: false, projectTitle:null, projectDescription:null, projectTitleStatus: null, projectDescriptionStatus:null });
+    }
   }
 
   goToProjectDetails = (e, title, members_task, projects) => {
@@ -123,17 +145,19 @@ class TaskManagement extends Component {
           <form>
           <FormGroup
             controlId="formBasicText"
+            validationState={this.state.projectTitleStatus}
           >
             <ControlLabel>Title</ControlLabel>
             <FormControl
               type="text"
+              value={this.state.projectTitle}
               placeholder="Enter Title"
-              onChange={this.changeTaskTitle}
+              onChange={this.changeProjectTitle}
             />
           </FormGroup>
-          <FormGroup controlId="formControlsTextarea">
+          <FormGroup controlId="formControlsTextarea" validationState={this.state.projectDescriptionStatus} >
             <ControlLabel>Description</ControlLabel>
-            <FormControl componentClass="textarea" placeholder="Start typing..." onChange={this.changeTaskDescription} />
+            <FormControl componentClass="textarea" placeholder="Start typing..." onChange={this.changeProjectDescription} />
           </FormGroup>
           <FormGroup controlId="formControlsSelect">
             <ControlLabel>Members</ControlLabel>

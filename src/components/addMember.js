@@ -38,12 +38,13 @@ class addMember extends React.Component {
     super(props);
     this.state = {
       showCreateMemberModal: false,
-      memberName: null
+      memberName: null,
+      memberNameStatus: null
     };
   }
 
   closeCreateMemberModal = () => {
-    this.setState({ showCreateMemberModal: false });
+    this.setState({ showCreateMemberModal: false, memberName: null, memberNameStatus: null });
   }
 
   openCreateMemberModal = () => {
@@ -51,13 +52,24 @@ class addMember extends React.Component {
   }
 
   changeMemberName = (e) => {
-    this.setState({ memberName: e.target.value });
+    let length = e.target.value.length;
+    let Status = 'success';
+    if (length <= 0){
+      Status = 'error'
+    }
+    this.setState({ memberName: e.target.value, memberNameStatus: Status});
   }
 
   addMember = (e) => {
     e.preventDefault();
+
+    if(this.state.memberNameStatus == null){
+      this.setState({memberNameStatus: 'error'});
+    }
+    else if(this.state.memberNameStatus == 'success'){
     this.props.actions.addMember(this.state.memberName, this.props.projectTitle);
-    this.setState({ showCreateMemberModal: false });
+    this.setState({ showCreateMemberModal: false, memberName: null, memberNameStatus: null});
+    }
   }
 
   render() {
@@ -78,10 +90,12 @@ class addMember extends React.Component {
           <form>
           <FormGroup
             controlId="formBasicText"
+            validationState={this.state.memberNameStatus}
           >
             <ControlLabel>Member Name</ControlLabel>
             <FormControl
               type="text"
+              value={this.state.memberName}
               placeholder="Enter Member Name"
               onChange={this.changeMemberName}
             />
