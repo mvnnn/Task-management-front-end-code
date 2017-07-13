@@ -42,6 +42,20 @@ class TaskApi {
     });
   }
 
+  static addMember(member_name, project_title) {
+    return fetch('http://localhost:4000/member', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({member_name, project_title})}).then(response => {
+      return response.json();
+    }).catch(error => {
+      return error;
+    });
+  }
+
 
 }
 

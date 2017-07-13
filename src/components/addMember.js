@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import createHistory from 'history/createBrowserHistory'
-
-const history = createHistory();
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as actions from '../actions/taskActions';
+import { Button, Navbar, Grid, Row, Col, Glyphicon, Modal, form, FormGroup, FormControl, ControlLabel, option } from 'react-bootstrap';
+
+import * as actions from '../actions/projectActions';
 
 let styles = {
   grid: {
@@ -37,13 +36,28 @@ let styles = {
 class addMember extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {message: 'Hello!'};
-    // This line is important!
-    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      showCreateMemberModal: false,
+      memberName: null
+    };
   }
 
-  handleClick = () => {
-    this.props.actions.createMember();
+  closeCreateMemberModal = () => {
+    this.setState({ showCreateMemberModal: false });
+  }
+
+  openCreateMemberModal = () => {
+    this.setState({ showCreateMemberModal: true });
+  }
+
+  changeMemberName = (e) => {
+    this.setState({ memberName: e.target.value });
+  }
+
+  addMember = (e) => {
+    e.preventDefault();
+    this.props.actions.addMember(this.state.memberName, this.props.projectTitle);
+    this.setState({ showCreateMemberModal: false });
   }
 
   render() {
@@ -52,9 +66,33 @@ class addMember extends React.Component {
       padding: '10%',
       textAlign: 'center'
     };
-    return (
-      <div style={styles.card} onClick={this.handleClick}>
+    return (<div>
+      <div style={styles.card} onClick={this.openCreateMemberModal}>
       <h5 style={styleGrid}>Add New Member</h5>
+      </div>
+        <Modal backdrop={false} show={this.state.showCreateMemberModal} onHide={this.closeCreateMemberModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add Member</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          <form>
+          <FormGroup
+            controlId="formBasicText"
+          >
+            <ControlLabel>Member Name</ControlLabel>
+            <FormControl
+              type="text"
+              placeholder="Enter Member Name"
+              onChange={this.changeMemberName}
+            />
+          </FormGroup>
+          </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.closeCreateMemberModal}>Cancel</Button>
+            <Button bsStyle="primary" onClick={this.addMember}>Create</Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }

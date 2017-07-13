@@ -139,7 +139,7 @@ class projectTasks extends React.Component {
     ) : null
       }
       <div style={styles.grid1}>
-        <AddMember {...this.props} />
+        <AddMember {...this.props} projectTitle={this.props.projectTitle} />
       </div>
       </div>
     );

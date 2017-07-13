@@ -168,6 +168,26 @@ export default function projectReducer(state = initialState.projects, action) {
       projects: state.projects
     }
 
+    case types.CREATE_MEMBERS_SUCCESS:
+    function search(projects, project_title){
+    for (let i=0; i < projects.length; i++) {
+        if (projects[i].project_title === project_title) {
+            return i;
+        }
+      }
+      return null;
+    }
+    let ProjctObjectIndex = search(state.projects, action.project_title);
+
+    state.projects[ProjctObjectIndex].members_task.push({
+      member_name: action.member_name,
+      tasks: []
+    });
+
+    return {
+      projects: state.projects
+    }
+
     default:
       return state;
   }

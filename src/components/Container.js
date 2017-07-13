@@ -19,7 +19,7 @@ class Container extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    const { projects } = this.props.projects;
+    // const { projects } = this.props.projects;
     // console.log("updateCCCC====>"+projects+".."+nextProps.projectTitle);
     // function searchByTitle(projects, project_title){
     // for (let i=0; i < projects.length; i++) {
@@ -36,9 +36,9 @@ class Container extends Component {
     // let data = (this.props.projects)[ObjectIndex1].members_task;
     // console.log("INDEX"+ projects[ObjectIndex1].members_task);
     // this.forceUpdate(ObjectIndex1.members_task);
-    // this.setState({
-    //   cards : nextProps.list
-    // });
+    this.setState({
+      cards : this.props.list
+    });
   }
 
 	pushCard(card) {
