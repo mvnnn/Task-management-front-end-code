@@ -20,24 +20,6 @@ let styles = {
     overflowX: 'auto',
     overflowY: 'hidden',
     verticalAlign: 'text-top'
-  },
-  grid1: {
-    display: 'inline-block',
-    width: (0.17)*window.innerWidth,
-    whiteSpace: 'normal',
-    transition: '0.3s',
-    margin: '5%',
-    verticalAlign: 'text-top'
-  },
-  card: {
-    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-    transition: '0.3s',
-    textAlign: 'center'
-  },
-  line: {
-    borderStyle: 'dotted',
-    height: window.innerHeight,
-    width: '1px'
   }
 }
 
@@ -48,6 +30,7 @@ class projectDetails extends Component {
      membersTask: []
    }
   }
+
   componentDidMount = () => {
     this.setState({
       membersTask: this.props.location.state.members_task
@@ -56,50 +39,7 @@ class projectDetails extends Component {
     console.log(this.props.projects);
   }
 
-  createTask = (e) => {
-    e.preventDefault();
-    this.props.actions.createTask();
-  }
-
   render() {
-    const style = {
-      display: "flex",
-      justifyContent: "space-around",
-      paddingTop: "1%",
-      width: (0.17)*window.innerWidth,
-    }
-
-    const styleGrid = {
-      margin: '4%',
-      padding: '10%',
-      textAlign: 'center',
-
-    };
-
-    const styleCard = {
-      boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-      transition: '0.3s',
-      margin: '4%',
-      padding: '10%',
-      width:  (0.3)*window.innerWith,
-      height:  (0.1)*window.innerHeight,
-      textAlign: 'center',
-    	backgroundColor: 'white',
-    	cursor: 'move'
-    };
-
-    // const { projects } = this.props.projects;
-    // function searchByTitle(projects, project_title){
-    // for (let i=0; i < projects.length; i++) {
-    //     if (projects[i].project_title === project_title) {
-    //         return i;
-    //     }
-    //   }
-    //   return null;
-    // }
-    // let ObjectIndex1 = searchByTitle(projects, this.props.location.state.project_title);
-
-    // let members_data = projects[ObjectIndex1].membersTask;
     let members_data = this.state.membersTask;
 
     return (
@@ -111,7 +51,7 @@ class projectDetails extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  console.log("aa"+state.projects);
+  // console.log("aa"+state.projects);
     return {
       projects: state.projects
     }

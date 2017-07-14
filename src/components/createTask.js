@@ -15,6 +15,11 @@ let styles = {
     textAlign: 'center',
     width: '100%',
     backgroundColor: '#f2f2f2',
+  },
+  styleGrid: {
+    margin: '4%',
+    padding: '10%',
+    textAlign: 'center',
   }
 }
 
@@ -99,16 +104,10 @@ class createTask extends React.Component {
   }
 
   render() {
-    const styleGrid = {
-      margin: '4%',
-      padding: '10%',
-      textAlign: 'center',
-
-    };
     return (
       <div>
       <div style={styles.card} onClick={this.openCreateTaskModal}>
-      <h5 style={styleGrid}><Glyphicon glyph="plus-sign" /><br />
+      <h5 style={styles.styleGrid}><Glyphicon glyph="plus-sign" /><br />
       Create Task</h5>
       </div>
 

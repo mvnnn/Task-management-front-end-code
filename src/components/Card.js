@@ -12,27 +12,6 @@ const style = {
 	cursor: 'move'
 };
 
-let styles = {
-  grid1: {
-    display: 'inline-block',
-    width: (0.17)*window.innerWidth,
-    whiteSpace: 'normal',
-    textAlign: 'left',
-    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-    transition: '0.3s',
-    marginTop: '4%',
-    cursor: 'move',
-    backgroundColor: '#f2f2f2'
-  },
-  card: {
-    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-    transition: '0.3s',
-    textAlign: 'center',
-    width: '120%',
-    backgroundColor: '#f2f2f2'
-  },
-}
-
 class Card extends Component {
   constructor(props) {
    super(props);
@@ -45,7 +24,7 @@ class Card extends Component {
 
 	render() {
 		const { card, isDragging, connectDragSource, connectDropTarget } = this.props;
-		const opacity = isDragging ? 0 : 1;
+		// const opacity = isDragging ? 0 : 1;
 
     let Color = "#00b386";
 
@@ -64,20 +43,6 @@ class Card extends Component {
     else if(card.status === "Schedule"){
       Color = "#ff0066";
     }
-
-    const grid1 =  {
-
-      display: 'inline-block',
-      width: (0.17)*window.innerWidth,
-      whiteSpace: 'normal',
-      textAlign: 'left',
-      boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-      transition: '0.3s',
-      marginTop: '4%',
-      cursor: 'move',
-      backgroundColor: '#f2f2f2',
-      borderLeft : `2px solid ${Color}`
-    };
 
     const cardStyle = {
       boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",

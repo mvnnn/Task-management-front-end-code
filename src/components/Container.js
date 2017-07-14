@@ -61,7 +61,8 @@ class Container extends Component {
 		let { canDrop, isOver, connectDropTarget } = this.props;
 		let isActive = canDrop && isOver;
 		const style = {
-			width: (0.17)*window.innerWidth,
+      minWidth: '200px',
+			width: (0.20)*window.innerWidth,
 		};
 
 		const backgroundColor = isActive ? 'lightgreen' : '#FFF';

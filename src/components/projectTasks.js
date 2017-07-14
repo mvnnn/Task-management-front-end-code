@@ -45,8 +45,10 @@ let styles = {
     textAlign: 'center',
     width: '100%'
   },
-  line: {
-    borderLeft: '6px solid red'
+  styleGrid: {
+    margin: '5%',
+    padding: '9%',
+    textAlign: 'center',
   }
 }
 
@@ -90,24 +92,6 @@ class projectTasks extends React.Component {
       width: (0.17)*window.innerWidth,
     }
 
-    const styleGrid = {
-      margin: '5%',
-      padding: '9%',
-      textAlign: 'center',
-    };
-
-    const styleCard = {
-      boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-      transition: '0.3s',
-      margin: '4%',
-      padding: '10%',
-      // width:  (0.3)*window.innerWith,
-      // height:  (0.1)*window.innerHeight,
-      textAlign: 'center',
-      backgroundColor: 'white',
-      cursor: 'move'
-    };
-
     // let {projects} = this.props.projects;
 
     let members_data = this.state.members_data;
@@ -132,7 +116,7 @@ class projectTasks extends React.Component {
   this.state.members_data.map((data, i) => {
     return <div key={i} style={styles.Taskgrid}>
       <div style={styles.card}>
-      <h5 style={styleGrid}>{data.member_name}</h5>
+      <h5 style={styles.styleGrid}>{data.member_name}</h5>
       </div>
     <Container id={i} CNumber={i} list={data.tasks} memberName={data.member_name} projectTitle={this.props.projectTitle} />
     <CreateTask {...this.props} memberName={data.member_name} projectTitle={this.props.projectTitle}/>
