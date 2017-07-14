@@ -31,7 +31,7 @@ class projectDetails extends Component {
    }
   }
 
-  componentDidMount = () => {
+  componentDidMount(){
     this.setState({
       membersTask: this.props.location.state.members_task
     })
@@ -50,17 +50,4 @@ class projectDetails extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  // console.log("aa"+state.projects);
-    return {
-      projects: state.projects
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {actions: bindActionCreators(actions, dispatch)}
-}
-
-
-connect(mapStateToProps, mapDispatchToProps)(projectDetails);
 export default DragDropContext(HTML5Backend)(projectDetails);

@@ -17,9 +17,10 @@ class Card extends Component {
    super(props);
   }
 
-  changeStatus = (value) => {
-    this.props.actions.updateTaskStatus(this.props.projectTitle,this.props.memberName,this.props.card.id, value);
-    console.log(this.props.card.id+","+this.props.projectTitle+","+this.props.memberName);
+  changeStatus(value, oldStatus){
+    if(value != oldStatus){
+      this.props.actions.updateTaskStatus(this.props.projectTitle,this.props.memberName,this.props.card.id, value);
+    }
   }
 
 	render() {
@@ -63,21 +64,13 @@ class Card extends Component {
     const buttonBackground = {
       position: 'relative',
       marginTop: '6px'
-    }
+    };
 
     const styleGrid = {
       margin: '5%',
       padding: '5%',
       textAlign: 'left',
     };
-
-    // const styleGrid = {
-    //   margin: '4%',
-    //   textAlign: 'left',
-    //   paddingLeft: '2%',
-    //   cursor: 'move',
-    //   width: '120%'
-    // };
 
 		return connectDragSource(connectDropTarget(
       <div style={cardStyle}>
@@ -89,11 +82,11 @@ class Card extends Component {
         <Col xs={4} md={4}>
         <ButtonToolbar style={buttonBackground}>
           <DropdownButton style={statusButton} bsStyle={statusButton} bsSize="xsmall" title={card.status} id="dropdown-size-extra-small" >
-            <MenuItem eventKey="1" onSelect={this.changeStatus.bind(this, "Done")}>Done</MenuItem>
-            <MenuItem eventKey="2" onSelect={this.changeStatus.bind(this, "On Hold")}>On Hold</MenuItem>
-            <MenuItem eventKey="3" onSelect={this.changeStatus.bind(this, "In Process")}>In Process</MenuItem>
-            <MenuItem eventKey="4" onSelect={this.changeStatus.bind(this, "Sent")}>Sent</MenuItem>
-            <MenuItem eventKey="5" onSelect={this.changeStatus.bind(this, "Schedule")}>Schedule</MenuItem>
+            <MenuItem eventKey="1" onSelect={() => this.changeStatus("Done", card.status)}>Done</MenuItem>
+            <MenuItem eventKey="2" onSelect={() => this.changeStatus("On Hold", card.status)}>On Hold</MenuItem>
+            <MenuItem eventKey="3" onSelect={() => this.changeStatus("In Process", card.status)}>In Process</MenuItem>
+            <MenuItem eventKey="4" onSelect={() => this.changeStatus("Sent", card.status)}>Sent</MenuItem>
+            <MenuItem eventKey="5" onSelect={() => this.changeStatus("Schedule", card.status)}>Schedule</MenuItem>
           </DropdownButton>
         </ButtonToolbar>
         </Col>
@@ -108,7 +101,6 @@ class Card extends Component {
 const cardSource = {
 
 	beginDrag(props) {
-    // console.log(props.index, props.listId, props.card);
 		return {
 			index: props.index,
 			listId: props.listId,
@@ -121,7 +113,6 @@ const cardSource = {
 		const dropResult = monitor.getDropResult();
 
 		if ( dropResult && dropResult.listId !== item.listId ) {
-      // console.log(props.index+","+props.listId+","+props.card.id+","+item.index+","+dropResult.listId);
       props.actions.dragAndDropCardUpdate(props.listId, dropResult.listId, props.card.id, props.projectTitle);
 			props.removeCard(item.index);
 		}

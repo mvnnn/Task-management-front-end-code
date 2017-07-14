@@ -16,10 +16,27 @@ let styles = {
     margin: '4%',
     padding: '10%',
     textAlign: 'center'
+  },
+  button: {
+    borderRadius: '25px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingTop: '-5px',
+    paddingBottom: '-5px'
+  },
+  createButton: {
+    marginLeft: '10px',
+    backgroundColor:'#00b386',
+    color:'white'
+  },
+  cancelButton: {
+    backgroundColor:'white',
+    color:'grey',
+    borderColor: 'grey'
   }
 }
 
-class addMember extends React.Component {
+export class AddMember extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,15 +46,15 @@ class addMember extends React.Component {
     };
   }
 
-  closeCreateMemberModal = () => {
+  closeCreateMemberModal(){
     this.setState({ showCreateMemberModal: false, memberName: null, memberNameStatus: null });
   }
 
-  openCreateMemberModal = () => {
+  openCreateMemberModal(){
     this.setState({ showCreateMemberModal: true });
   }
 
-  changeMemberName = (e) => {
+  changeMemberName(e){
     let length = e.target.value.length;
     let Status = 'success';
     if (length <= 0){
@@ -46,8 +63,8 @@ class addMember extends React.Component {
     this.setState({ memberName: e.target.value, memberNameStatus: Status});
   }
 
-  addMember = (e) => {
-    e.preventDefault();
+  addMembers(){
+    // e.preventDefault();
 
     if(this.state.memberNameStatus == null){
       this.setState({memberNameStatus: 'error'});
@@ -60,10 +77,10 @@ class addMember extends React.Component {
 
   render() {
     return (<div>
-      <div style={styles.card} onClick={this.openCreateMemberModal}>
-      <h5 style={styles.styleGrid}>Add New Member</h5>
+      <div style={styles.card} onClick={()=>this.openCreateMemberModal()}>
+      <h5 id="addNewMember" style={styles.styleGrid}>Add New Member</h5>
       </div>
-        <Modal backdrop={false} show={this.state.showCreateMemberModal} onHide={this.closeCreateMemberModal}>
+        <Modal backdrop={false} show={this.state.showCreateMemberModal} onHide={()=>this.closeCreateMemberModal()}>
           <Modal.Header closeButton>
             <Modal.Title>Add Member</Modal.Title>
           </Modal.Header>
@@ -78,14 +95,14 @@ class addMember extends React.Component {
               type="text"
               value={this.state.memberName}
               placeholder="Enter Member Name"
-              onChange={this.changeMemberName}
+              onChange={(e) => this.changeMemberName(e)}
             />
           </FormGroup>
           </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.closeCreateMemberModal}>Cancel</Button>
-            <Button bsStyle="primary" onClick={this.addMember}>Create</Button>
+            <Button id="cancel" bsStyle="white" style={{...styles.button, ...styles.cancelButton}} onClick={() => this.closeCreateMemberModal()}>Cancel</Button>
+            <Button id="submit" bsStyle="Green" style={{...styles.button, ...styles.createButton}} onClick={() => this.addMembers()}>Create</Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -104,4 +121,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(addMember);
+export default connect(mapStateToProps, mapDispatchToProps)(AddMember);

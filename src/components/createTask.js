@@ -15,17 +15,35 @@ let styles = {
     textAlign: 'center',
     width: '100%',
     backgroundColor: '#f2f2f2',
+    opacity: 0.5
   },
   styleGrid: {
     margin: '4%',
     padding: '10%',
     textAlign: 'center',
+  },
+  button: {
+    borderRadius: '25px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingTop: '-5px',
+    paddingBottom: '-5px'
+  },
+  createButton: {
+    marginLeft: '10px',
+    backgroundColor:'#00b386',
+    color:'white'
+  },
+  cancelButton: {
+    backgroundColor:'white',
+    color:'grey',
+    borderColor: 'grey'
   }
 }
 
 const StatusData = ["Done", "On Hold", "In Process", "Sent", "Schedule"];
 
-class createTask extends React.Component {
+export class CreateTask extends Component {
   constructor(props) {
     super(props);
     this.state={
@@ -40,19 +58,19 @@ class createTask extends React.Component {
     this.idGenerator = this.idGenerator.bind(this);
   }
 
-  componentDidMount = () => {
-    console.log(this.props.projects);
-  }
+  // componentDidMount(){
+  //   console.log(this.props.projects);
+  // }
 
-  closeCreateTaskModal = () => {
+  closeCreateTaskModal(){
     this.setState({ showCreateTaskModal: false, taskTitle:null, taskDescription:null, taskTitleStatus: null,  taskDescriptionStatus: null });
   }
 
-  openCreateTaskModal = () => {
+  openCreateTaskModal(){
     this.setState({ showCreateTaskModal: true });
   }
 
-  changeTaskTitle = (e) => {
+  changeTaskTitle(e){
     let length = e.target.value.length;
     let Status = 'success';
     if (length <= 0){
@@ -61,7 +79,7 @@ class createTask extends React.Component {
     this.setState({ taskTitle: e.target.value, taskTitleStatus:Status});
   }
 
-  changeTaskDescription = (e) => {
+  changeTaskDescription(e){
     let length = e.target.value.length;
     let Status = 'success';
     if (length <= 0){
@@ -70,24 +88,23 @@ class createTask extends React.Component {
     this.setState({ taskDescription: e.target.value, taskDescriptionStatus:Status});
   }
 
-  changeTaskStatus = (e) => {
-
+  changeTaskStatus(e){
     this.setState({
       taskStatus: e.target.value
     });
   }
 
-  idGenerator = (n) => {
+  idGenerator(n){
     let generatorId="";
     var stringg="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
     for(let i=0;i<n;i++){
       generatorId += stringg.charAt(Math.floor(Math.random()*stringg.length));
     }
     return generatorId;
-  };
+  }
 
-  createTask = (e) => {
-    e.preventDefault();
+  createTasks(){
+    // e.preventDefault();
 
     if(this.state.taskTitleStatus == null){
       this.setState({taskTitleStatus: 'error'});
@@ -106,12 +123,12 @@ class createTask extends React.Component {
   render() {
     return (
       <div>
-      <div style={styles.card} onClick={this.openCreateTaskModal}>
-      <h5 style={styles.styleGrid}><Glyphicon glyph="plus-sign" /><br />
+      <div style={styles.card} onClick={() => this.openCreateTaskModal()}>
+      <h5 id="createTask" style={styles.styleGrid}><Glyphicon glyph="plus-sign" /><br />
       Create Task</h5>
       </div>
 
-              <Modal backdrop={false} show={this.state.showCreateTaskModal} onHide={this.closeCreateTaskModal}>
+              <Modal backdrop={false} show={this.state.showCreateTaskModal} onHide={() => this.closeCreateTaskModal()}>
                 <Modal.Header closeButton>
                   <Modal.Title>Create Task</Modal.Title>
                 </Modal.Header>
@@ -126,16 +143,16 @@ class createTask extends React.Component {
                     type="text"
                     value={this.state.taskTitle}
                     placeholder="Enter Title"
-                    onChange={this.changeTaskTitle}
+                    onChange={(e)=>this.changeTaskTitle(e)}
                   />
                 </FormGroup>
                 <FormGroup controlId="formControlsTextarea" validationState={this.state.taskDescriptionStatus}>
                   <ControlLabel>Description</ControlLabel>
-                  <FormControl componentClass="textarea" placeholder="Start typing..." onChange={this.changeTaskDescription} />
+                  <FormControl componentClass="textarea" placeholder="Start typing..." onChange={(e)=>this.changeTaskDescription(e)} />
                 </FormGroup>
                 <FormGroup controlId="formControlsSelect">
                   <ControlLabel>Status</ControlLabel>
-                  <FormControl componentClass="select" placeholder="select" onChange={this.changeTaskStatus} >
+                  <FormControl componentClass="select" placeholder="select" onChange={(e)=>this.changeTaskStatus(e)} >
                   {StatusData.map((x, i) =>
                      <option value={x} key={i} >{x}</option>
                    )}
@@ -144,8 +161,8 @@ class createTask extends React.Component {
                 </form>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button onClick={this.closeCreateTaskModal}>Cancel</Button>
-                  <Button bsStyle="primary" onClick={this.createTask}>Create</Button>
+                  <Button id='cancel' bsStyle="white" style={{...styles.button, ...styles.cancelButton}} onClick={()=>this.closeCreateTaskModal()}>Cancel</Button>
+                  <Button id='submit' bsStyle="Green" style={{...styles.button, ...styles.createButton}} onClick={() => this.createTasks()}>Create</Button>
                 </Modal.Footer>
               </Modal>
       </div>
@@ -164,4 +181,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(createTask);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateTask);

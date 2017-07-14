@@ -18,7 +18,7 @@ class Container extends Component {
     this.setState({ cards: this.props.list });
   }
 
-  componentWillReceiveProps = (nextProps) => {
+  componentWillReceiveProps(nextProps){
     this.setState({
       cards : this.props.list
     });
@@ -65,7 +65,7 @@ class Container extends Component {
 			width: (0.20)*window.innerWidth,
 		};
 
-		const backgroundColor = isActive ? 'lightgreen' : '#FFF';
+		const backgroundColor = isActive ? '#00b386' : '#FFF';
     const height = cards.length == 0 ? '50px': 'auto';
 
 		return connectDropTarget(
@@ -79,8 +79,8 @@ class Container extends Component {
 							card={card}
               projectTitle={this.props.projectTitle}
               memberName={this.props.memberName}
-							removeCard={this.removeCard.bind(this)}
-							moveCard={this.moveCard.bind(this)} />
+							removeCard={() => this.removeCard()}
+							moveCard={() => this.moveCard()} />
 					);
 				})}
 			</div>

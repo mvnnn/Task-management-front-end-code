@@ -32,7 +32,8 @@ let styles = {
     padding : '1%',
     paddingTop: '0',
     marginTop : '0',
-    width : (0.17)*window.innerWidth,
+    width : (0.20)*window.innerWidth,
+    minWidth: '200px',
     verticalAlign: 'text-top',
     borderLeft: '1px dashed grey',
     height: window.innerHeight,
@@ -60,7 +61,7 @@ class projectTasks extends React.Component {
     };
   }
 
-  componentWillReceiveProps = (nextProps) => {
+  componentWillReceiveProps(nextProps){
     let {projects} = nextProps.projects;
     // console.log("update====>"+projects+".."+nextProps.projectTitle);
     function searchByTitle(projects, project_title){
@@ -71,7 +72,7 @@ class projectTasks extends React.Component {
       }
       return null;
     }
-    let ObjectIndex1 = searchByTitle(projects, nextProps.projectTitle);
+    let UpdatedProjects = searchByTitle(projects, nextProps.projectTitle);
 
     // console.log("Update"+JSON.stringify(ObjectIndex1.members_task));
     // let JSONObject = JSON.stringify(ObjectIndex1);
@@ -79,7 +80,7 @@ class projectTasks extends React.Component {
     // console.log("INDEX"+ projects[ObjectIndex1].members_task);
     // this.forceUpdate(ObjectIndex1.members_task);
     this.setState({
-      members_data : ObjectIndex1.members_task
+      members_data : UpdatedProjects.members_task
     });
   }
 
@@ -101,16 +102,16 @@ class projectTasks extends React.Component {
         <Navbar bsStyle={{backgroundColor:'#00b386'}} fixedTop={true} style={{backgroundColor:'#00b386', padding:'1%'}}>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#" bsStyle={{color:'white'}} style={{color:'white', fontSize:"25"}}>{this.props.projectTitle}</a>
+              <a href="#/project" bsStyle={{color:'white'}} style={{color:'white', fontSize:"25"}}>{this.props.projectTitle}</a>
             </Navbar.Brand>
           </Navbar.Header>
-        <Nav style={{paddingTop: '1%'}} pullRight >
+        <Nav style={{paddingTop: '1%'}} pullRight>
         <div>
         <a href="/#/project"><Glyphicon bsSize="large" style={{color:'white', backgroundColor:'#00b386', fontSize:"25"}} glyph="remove" /></a>
         </div>
     </Nav>
         </Navbar>
-        <div style={{marginTop:'8%'}}>
+        <div style={{marginTop:'100px'}}>
       {
         this.state.members_data ? (
   this.state.members_data.map((data, i) => {
