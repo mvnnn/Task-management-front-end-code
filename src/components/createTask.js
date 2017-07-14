@@ -161,8 +161,8 @@ export class CreateTask extends Component {
                 </form>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button id='cancel' bsStyle="white" style={{...styles.button, ...styles.cancelButton}} onClick={()=>this.closeCreateTaskModal()}>Cancel</Button>
-                  <Button id='submit' bsStyle="Green" style={{...styles.button, ...styles.createButton}} onClick={() => this.createTasks()}>Create</Button>
+                  <Button id='cancel' bsStyle="white" style={Object.assign({}, styles.button, styles.cancelButton)} onClick={()=>this.closeCreateTaskModal()}>Cancel</Button>
+                  <Button id='submit' bsStyle="Green" style={Object.assign({}, styles.button, styles.createButton)} onClick={() => this.createTasks()}>Create</Button>
                 </Modal.Footer>
               </Modal>
       </div>

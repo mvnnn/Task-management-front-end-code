@@ -9,7 +9,7 @@ import CreateTask from './createTask';
 import * as actions from '../actions/projectActions';
 
 let styles = {
-  Taskgrid: {
+  Grid: {
     display: 'inline-block',
     whiteSpace: 'normal',
     transition: '0.3s',
@@ -17,28 +17,18 @@ let styles = {
     padding : '1%',
     paddingTop: '0',
     marginTop : '0',
-    marginRight : '-3%',
     verticalAlign: 'text-top',
     borderLeft: '1px dashed grey',
     height: window.innerHeight,
     overflowY: 'auto',
     overflowX: 'auto',
   },
+  Taskgrid: {
+    marginRight : '-3%'
+  },
   AddMembergrid: {
-    display: 'inline-block',
-    whiteSpace: 'normal',
-    transition: '0.3s',
-    margin : '3%',
-    padding : '1%',
-    paddingTop: '0',
-    marginTop : '0',
     width : (0.20)*window.innerWidth,
-    minWidth: '200px',
-    verticalAlign: 'text-top',
-    borderLeft: '1px dashed grey',
-    height: window.innerHeight,
-    overflowY: 'auto',
-    overflowX: 'auto',
+    minWidth: '200px'
   },
   card: {
     boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
@@ -115,7 +105,7 @@ class projectTasks extends React.Component {
       {
         this.state.members_data ? (
   this.state.members_data.map((data, i) => {
-    return <div key={i} style={styles.Taskgrid}>
+    return <div key={i} style={Object.assign({}, styles.Grid, styles.Taskgrid)} >
       <div style={styles.card}>
       <h5 style={styles.styleGrid}>{data.member_name}</h5>
       </div>
@@ -125,7 +115,7 @@ class projectTasks extends React.Component {
   })
     ) : null
       }
-      <div style={styles.AddMembergrid}>
+      <div style={Object.assign({}, styles.AddMembergrid, styles.Grid)}>
         <AddMember {...this.props} projectTitle={this.props.projectTitle} />
       </div>
       </div>

@@ -189,8 +189,8 @@ export class TaskManagement extends Component {
           </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button id="cancel" bsStyle="white" style={{...styles.button, ...styles.cancelButton}} onClick={() => this.closeCreateProjectModal()}>Cancel</Button>
-            <Button id="submit" bsStyle="Green" style={{...styles.button, ...styles.createButton}} onClick={(e) => this.createProjects(e)}>Create</Button>
+            <Button id="cancel" bsStyle="white" style={Object.assign({}, styles.button, styles.cancelButton)} onClick={() => this.closeCreateProjectModal()}>Cancel</Button>
+            <Button id="submit" bsStyle="Green" style={Object.assign({}, styles.button, styles.createButton)} onClick={(e) => this.createProjects(e)}>Create</Button>
           </Modal.Footer>
         </Modal>
 
