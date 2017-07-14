@@ -75,11 +75,11 @@ class Card extends Component {
 		return connectDragSource(connectDropTarget(
       <div style={cardStyle}>
       <div style={styleGrid}>
-        <Row className="show-grid">
-        <Col xs={6} md={6}>
+        <div style={{display: 'flex'}}>
+        <div>
         <h6 style={{color:'black', fontSize:'bold'}}>{card.task_title} </h6>
-        </Col>
-        <Col xs={4} md={4}>
+        </div>
+        <div style={{paddingLeft:'10px'}}>
         <ButtonToolbar style={buttonBackground}>
           <DropdownButton style={statusButton} bsStyle={statusButton} bsSize="xsmall" title={card.status} id="dropdown-size-extra-small" >
             <MenuItem eventKey="1" onSelect={() => this.changeStatus("Done", card.status)}>Done</MenuItem>
@@ -89,8 +89,8 @@ class Card extends Component {
             <MenuItem eventKey="5" onSelect={() => this.changeStatus("Schedule", card.status)}>Schedule</MenuItem>
           </DropdownButton>
         </ButtonToolbar>
-        </Col>
-      </Row>
+        </div>
+      </div>
 
         <div style={{fontSize:'10'}}>{card.task_description}</div></div>
       </div>
