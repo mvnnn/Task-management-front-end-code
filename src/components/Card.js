@@ -12,7 +12,7 @@ const style = {
 	cursor: 'move'
 };
 
-class Card extends Component {
+export class Card extends Component {
   constructor(props) {
    super(props);
   }

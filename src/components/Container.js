@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/projectActions';
 
-class Container extends Component {
+export class Container extends Component {
 
 	constructor(props) {
 		super(props);
@@ -69,7 +69,7 @@ class Container extends Component {
     const height = cards.length == 0 ? '50px': 'auto';
 
 		return connectDropTarget(
-			<div style={{...style, backgroundColor, height}}>
+			<div style={Object.assign({}, style,backgroundColor,height)}>
 				{cards.map((card, i) => {
 					return (
 						<Card

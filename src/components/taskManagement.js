@@ -141,7 +141,7 @@ export class TaskManagement extends Component {
         {
           projects ? (
     projects.map((project, i) => {
-      return <Col key={i} xs={11} md={3} sm={5} style={styles.card} onClick={(e) => this.goToProjectDetails(e, project.project_title, project.members_task, projects)}>
+      return <Col id="projects" key={i} xs={11} md={3} sm={5} style={styles.card} onClick={(e) => this.goToProjectDetails(e, project.project_title, project.members_task, projects)}>
       <h3>{project.project_title}</h3>
       <p>{project.project_description}</p>
       <h5 style={{fontWeight:'bold'}}>Total Members : {project.members}</h5>

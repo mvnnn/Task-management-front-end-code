@@ -6,7 +6,8 @@ import {AddMember} from '../../src/components/addMember';
 
 function setup() {
   const props = {
-    addMember: jest.fn()
+    addMember: jest.fn(),
+    closeCreateMemberModal: jest.fn()
   }
 
   const enzymeWrapper = mount(<AddMember {...props} />)

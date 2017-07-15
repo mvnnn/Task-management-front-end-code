@@ -43,7 +43,7 @@ let styles = {
   }
 }
 
-class projectTasks extends React.Component {
+export class ProjectTasks extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -92,7 +92,7 @@ class projectTasks extends React.Component {
         <Navbar bsStyle={{backgroundColor:'#00b386'}} fixedTop={true} style={{backgroundColor:'#00b386', padding:'1%'}}>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#/project" bsStyle={{color:'white'}} style={{color:'white', fontSize:"25"}}>{this.props.projectTitle}</a>
+              <a id="ProjectHeaderTitle" href="#/project" bsStyle={{color:'white'}} style={{color:'white', fontSize:"25"}}>{this.props.projectTitle}</a>
             </Navbar.Brand>
           </Navbar.Header>
         <Nav style={{paddingTop: '1%'}} pullRight>
@@ -105,7 +105,7 @@ class projectTasks extends React.Component {
       {
         this.state.members_data ? (
   this.state.members_data.map((data, i) => {
-    return <div key={i} style={Object.assign({}, styles.Grid, styles.Taskgrid)} >
+    return <div id="members" key={i} style={Object.assign({}, styles.Grid, styles.Taskgrid)} >
       <div style={styles.card}>
       <h5 style={styles.styleGrid}>{data.member_name}</h5>
       </div>
@@ -135,4 +135,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(projectTasks);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectTasks);
