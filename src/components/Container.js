@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/projectActions';
 
-export class Container extends Component {
+class Container extends Component {
 
 	constructor(props) {
 		super(props);
@@ -60,16 +60,18 @@ export class Container extends Component {
 		let { cards } = this.state;
 		let { canDrop, isOver, connectDropTarget } = this.props;
 		let isActive = canDrop && isOver;
-		const style = {
-      minWidth: '200px',
-			width: (0.20)*window.innerWidth,
-		};
 
 		const backgroundColor = isActive ? '#00b386' : '#FFF';
     const height = cards.length == 0 ? '50px': 'auto';
+    const style = {
+      minWidth: '200px',
+      width: (0.20)*window.innerWidth,
+      backgroundColor: backgroundColor,
+      height: height
+    };
 
 		return connectDropTarget(
-			<div style={Object.assign({}, style,backgroundColor,height)}>
+			<div style={style}>
 				{cards.map((card, i) => {
 					return (
 						<Card
