@@ -8,9 +8,7 @@ import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { HashRouter as Router, Route } from 'react-router-dom';
-// import routes from './routes';
 import ProjectDetails from './components/projectDetails';
-// import App from './components/App';
 import TaskManagement from './components/taskManagement';
 import {loadProjects} from './actions/projectActions';
 import registerServiceWorker from './registerServiceWorker';
@@ -31,5 +29,4 @@ render(
   document.getElementById('root')
 );
 
-// ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
