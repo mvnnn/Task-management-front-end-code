@@ -62,7 +62,7 @@ class Container extends Component {
 		let isActive = canDrop && isOver;
 
 		const backgroundColor = isActive ? '#00b386' : '#FFF';
-    const height = cards.length == 0 ? '50px': 'auto';
+    const height = cards.length === 0 ? '50px': 'auto';
     const style = {
       minWidth: '200px',
       width: (0.20)*window.innerWidth,

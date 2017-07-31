@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { Button, Navbar, Nav, Grid, Row, Col, Glyphicon, NavItem} from 'react-bootstrap';
+import { Navbar, Nav, Glyphicon} from 'react-bootstrap';
 
 import Container from './Container';
 import AddMember from './addMember';
@@ -76,16 +76,16 @@ export class ProjectTasks extends Component {
 
 
   render() {
-    const style = {
-      display: "flex",
-      justifyContent: "space-around",
-      paddingTop: "1%",
-      width: (0.17)*window.innerWidth,
-    }
+    // const style = {
+    //   display: "flex",
+    //   justifyContent: "space-around",
+    //   paddingTop: "1%",
+    //   width: (0.17)*window.innerWidth,
+    // }
 
     // let {projects} = this.props.projects;
 
-    let members_data = this.state.members_data;
+    // let members_data = this.state.members_data;
 
     return (
       <div>

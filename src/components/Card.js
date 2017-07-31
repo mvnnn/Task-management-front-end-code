@@ -6,11 +6,11 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/projectActions';
 
-import { Grid, Button, ButtonToolbar, DropdownButton, MenuItem, Row, Col} from 'react-bootstrap';
-const style = {
-	backgroundColor: 'white',
-	cursor: 'move'
-};
+import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
+// const style = {
+// 	backgroundColor: 'white',
+// 	cursor: 'move'
+// };
 
 export class Card extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ export class Card extends Component {
   }
 
   changeStatus(value, oldStatus){
-    if(value != oldStatus){
+    if(value !== oldStatus){
       this.props.actions.updateTaskStatus(this.props.projectTitle,this.props.memberName,this.props.card.id, value);
     }
   }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import createHistory from 'history/createBrowserHistory'
+// import createHistory from 'history/createBrowserHistory'
 
-const history = createHistory();
+// const history = createHistory();
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { Button, Navbar, Grid, Row, Col, Glyphicon, Modal, form, FormGroup, FormControl, ControlLabel, option } from 'react-bootstrap';
+import { Button, Glyphicon, Modal, form, FormGroup, FormControl, ControlLabel, option } from 'react-bootstrap';
 
 import * as actions from '../actions/projectActions';
 
@@ -113,7 +113,7 @@ export class CreateTask extends Component {
     if(this.state.taskDescriptionStatus == null){
       this.setState({taskDescriptionStatus: 'error'});
     }
-    else if(this.state.taskTitleStatus == 'success' && this.state.taskTitleStatus == 'success' ){
+    else if(this.state.taskTitleStatus === 'success' && this.state.taskTitleStatus === 'success' ){
     let task_id = this.idGenerator(5) + this.state.taskTitle + this.idGenerator(5);
     this.props.actions.createTask(this.state.taskTitle, this.state.taskDescription, this.state.taskStatus, this.props.memberName, this.props.projectTitle, task_id);
     this.setState({ showCreateTaskModal: false, taskTitle:null, taskDescription:null, taskTitleStatus: null,  taskDescriptionStatus: null});

@@ -1,6 +1,6 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
-import {browserHistory} from 'react-router';
+// import {browserHistory} from 'react-router';
 
 
 export default function projectReducer(state = initialState.projects, action) {
@@ -82,7 +82,7 @@ export default function projectReducer(state = initialState.projects, action) {
     case types.UPDATE_TASK_STATUS_SUCCESS:
 
     // console.log(state.projects);
-    function searchByTitle(projects, project_title){
+    function searchByTitles(projects, project_title){
     for (let i=0; i < projects.length; i++) {
         if (projects[i].project_title === project_title) {
             return i;
@@ -90,10 +90,10 @@ export default function projectReducer(state = initialState.projects, action) {
       }
       return null;
     }
-    let ProjectObjectIndex = searchByTitle(state.projects, action.project_title);
+    let ProjectObjectIndex = searchByTitles(state.projects, action.project_title);
 
 
-    function searchByName(members_task, member_name){
+    function searchByNames(members_task, member_name){
       for (let i=0; i < members_task.length; i++) {
         if (members_task[i].member_name === member_name) {
           return i;
@@ -101,7 +101,7 @@ export default function projectReducer(state = initialState.projects, action) {
       }
       return null;
     }
-    let MemberObjectIndex = searchByName(state.projects[ProjectObjectIndex].members_task, action.member_name);
+    let MemberObjectIndex = searchByNames(state.projects[ProjectObjectIndex].members_task, action.member_name);
 
     // console.log(state.projects[ProjectObjectIndex].members_task[MemberObjectIndex]);
 
@@ -120,7 +120,7 @@ export default function projectReducer(state = initialState.projects, action) {
       }
       return null;
     }
-    let ObjectIndex3 = searchByTask(state.projects[ProjectObjectIndex].members_task[MemberObjectIndex].tasks, action.task_id);
+    searchByTask(state.projects[ProjectObjectIndex].members_task[MemberObjectIndex].tasks, action.task_id);
 
     // console.log("Update"+state.projects);
 
@@ -130,7 +130,7 @@ export default function projectReducer(state = initialState.projects, action) {
 
     case types.CARD_DRAG_AND_DROP_SUCCESS:
 
-    function searchByTitle(projects, project_title){
+    function searchByTitl(projects, project_title){
     for (let i=0; i < projects.length; i++) {
         if (projects[i].project_title === project_title) {
             return i;
@@ -138,11 +138,11 @@ export default function projectReducer(state = initialState.projects, action) {
       }
       return null;
     }
-    let ProjectObjectIndex1 = searchByTitle(state.projects, action.project_title);
+    let ProjectObjectIndex1 = searchByTitl(state.projects, action.project_title);
 
     // console.log(state.projects[ProjectObjectIndex1].members_task[action.dragListId]);
 
-    function searchByTask(tasks, id){
+    function searchByTasks(tasks, id){
       for (let i=0; i < tasks.length; i++) {
         if (tasks[i].id === id) {
 
@@ -160,7 +160,7 @@ export default function projectReducer(state = initialState.projects, action) {
       }
       return null;
     }
-    searchByTask(state.projects[ProjectObjectIndex1].members_task[action.dragListId].tasks, action.cardId);
+    searchByTasks(state.projects[ProjectObjectIndex1].members_task[action.dragListId].tasks, action.cardId);
 
     // console.log("DRAG"+state.projects[ProjectObjectIndex1].members_task[action.dropListId]);
 
@@ -169,7 +169,7 @@ export default function projectReducer(state = initialState.projects, action) {
     }
 
     case types.CREATE_MEMBERS_SUCCESS:
-    function search(projects, project_title){
+    function searchTitle(projects, project_title){
     for (let i=0; i < projects.length; i++) {
         if (projects[i].project_title === project_title) {
             return i;
@@ -177,7 +177,7 @@ export default function projectReducer(state = initialState.projects, action) {
       }
       return null;
     }
-    let ProjctObjectIndex = search(state.projects, action.project_title);
+    let ProjctObjectIndex = searchTitle(state.projects, action.project_title);
 
     state.projects[ProjctObjectIndex].members_task.push({
       member_name: action.member_name,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { Button, Navbar, Grid, Row, Col, Glyphicon, Modal, form, FormGroup, FormControl, ControlLabel, option } from 'react-bootstrap';
+import { Button, Modal, form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 import * as actions from '../actions/projectActions';
 
@@ -70,7 +70,7 @@ export class AddMember extends Component {
     if(this.state.memberNameStatus == null){
       this.setState({memberNameStatus: 'error'});
     }
-    else if(this.state.memberNameStatus == 'success'){
+    else if(this.state.memberNameStatus === 'success'){
     this.props.actions.addMember(this.state.memberName, this.props.projectTitle);
     this.setState({ showCreateMemberModal: false, memberName: null, memberNameStatus: null});
     }

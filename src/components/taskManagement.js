@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 // import {Link, browserHistory} from 'react-router';
-import createHistory from 'history/createBrowserHistory'
+// import createHistory from 'history/createBrowserHistory'
 
-const history = createHistory();
+// const history = createHistory();
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Button, Navbar, Grid, Row, Col, Glyphicon, Modal, form, FormGroup, FormControl, ControlLabel, option } from 'react-bootstrap';
@@ -106,7 +106,7 @@ export class TaskManagement extends Component {
     if(this.state.projectDescriptionStatus == null){
       this.setState({projectDescriptionStatus: 'error'});
     }
-    else if(this.state.projectTitleStatus == 'success' && this.state.projectDescriptionStatus == 'success' ){
+    else if(this.state.projectTitleStatus === 'success' && this.state.projectDescriptionStatus === 'success' ){
     this.props.actions.createProject(this.state.projectTitle, this.state.projectDescription, this.state.members);
     this.setState({ showCreateProjectModal: false, projectTitle:null, projectDescription:null, projectTitleStatus: null, projectDescriptionStatus:null });
     }

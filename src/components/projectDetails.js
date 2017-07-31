@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import createHistory from 'history/createBrowserHistory'
+// import createHistory from 'history/createBrowserHistory'
 
-const history = createHistory();
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import Container from './Container';
-import AddMember from './addMember';
-import CreateTask from './createTask';
+// const history = createHistory();
+// import {connect} from 'react-redux';
+// import {bindActionCreators} from 'redux';
+// import Container from './Container';
+// import AddMember from './addMember';
+// import CreateTask from './createTask';
 import ProjectTasks from './projectTasks';
-import * as actions from '../actions/projectActions';
+// import * as actions from '../actions/projectActions';
 
 let styles = {
   grid: {
