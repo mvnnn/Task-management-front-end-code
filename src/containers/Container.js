@@ -101,10 +101,8 @@ const cardTarget = {
 	}
 }
 
-function mapStateToProps(state, ownProps) {
-    return {
-      projects: state.projects
-    }
+function mapStateToProps(state) {
+    return {}
 }
 
 function mapDispatchToProps(dispatch) {

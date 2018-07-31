@@ -11,7 +11,7 @@ After BACK-END server running...
 :: Task-management-front-end-code
 #### `npm install`
 #### `npm start`
-##### Open [http://localhost:3000/#/project](http://localhost:3000/#/project) to view it in the browser.
+##### Open [http://localhost:8080/#/project](http://localhost:8080/#/project) to view it in the browser.
 ---
 
 ### Code Testing

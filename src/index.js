@@ -8,8 +8,8 @@ import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { HashRouter as Router, Route } from 'react-router-dom';
-import ProjectDetails from './components/projectDetails';
-import TaskManagement from './components/taskManagement';
+import ProjectDetails from './containers/projectDetails';
+import ProjectManagement from './containers/projectManagement';
 import {loadProjects} from './actions/projectActions';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -21,7 +21,7 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <div>
-        <Route path="/project" component={TaskManagement} />
+        <Route path="/project" component={ProjectManagement} />
         <Route path="/projectDetails/:task" component={ProjectDetails} />
     </div>
   </Router>

@@ -1,6 +1,5 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
-// import {browserHistory} from 'react-router';
 
 
 export default function projectReducer(state = initialState.projects, action) {
@@ -43,7 +42,6 @@ export default function projectReducer(state = initialState.projects, action) {
 
     case types.CREATE_TASK_SUCCESS:
 
-    // console.log(state.projects);
     function searchByTitle(projects, project_title){
     for (let i=0; i < projects.length; i++) {
         if (projects[i].project_title === project_title) {
@@ -72,8 +70,6 @@ export default function projectReducer(state = initialState.projects, action) {
             id: action.task_id
           });
 
-    // console.log(state.projects[ObjectIndex1].members_task[0]);
-
     return {
       projects: state.projects
     }
@@ -81,7 +77,6 @@ export default function projectReducer(state = initialState.projects, action) {
 
     case types.UPDATE_TASK_STATUS_SUCCESS:
 
-    // console.log(state.projects);
     function searchByTitles(projects, project_title){
     for (let i=0; i < projects.length; i++) {
         if (projects[i].project_title === project_title) {
@@ -103,8 +98,6 @@ export default function projectReducer(state = initialState.projects, action) {
     }
     let MemberObjectIndex = searchByNames(state.projects[ProjectObjectIndex].members_task, action.member_name);
 
-    // console.log(state.projects[ProjectObjectIndex].members_task[MemberObjectIndex]);
-
     function searchByTask(tasks, id){
       for (let i=0; i < tasks.length; i++) {
         if (tasks[i].id === id) {
@@ -122,8 +115,6 @@ export default function projectReducer(state = initialState.projects, action) {
     }
     searchByTask(state.projects[ProjectObjectIndex].members_task[MemberObjectIndex].tasks, action.task_id);
 
-    // console.log("Update"+state.projects);
-
     return {
       projects: state.projects
     }
@@ -140,7 +131,6 @@ export default function projectReducer(state = initialState.projects, action) {
     }
     let ProjectObjectIndex1 = searchByTitl(state.projects, action.project_title);
 
-    // console.log(state.projects[ProjectObjectIndex1].members_task[action.dragListId]);
 
     function searchByTasks(tasks, id){
       for (let i=0; i < tasks.length; i++) {
@@ -161,8 +151,6 @@ export default function projectReducer(state = initialState.projects, action) {
       return null;
     }
     searchByTasks(state.projects[ProjectObjectIndex1].members_task[action.dragListId].tasks, action.cardId);
-
-    // console.log("DRAG"+state.projects[ProjectObjectIndex1].members_task[action.dropListId]);
 
     return {
       projects: state.projects

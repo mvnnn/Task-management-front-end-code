@@ -1,0 +1,41 @@
+.card-component {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    text-align: center;
+    width: 100%;
+    background-color: #f2f2f2;
+    h6 {
+      color: black;
+      font-size: bold
+    }
+  }
+
+.flex {
+  display: flex
+}
+
+.status-button {
+    color: white;
+    border-radius: 30px;
+    font-size: 80%
+  }
+
+.button-background{
+    position: relative;
+    margin-top: 6px;
+  }
+
+.style-grid {
+    margin: 5%;
+    padding: 5%;
+    text-align: left;
+  }
+
+.task-desc {
+  font-size: 10px;
+  position: relative;
+}
+
+.button-bar {
+  padding-left: 10px;
+}

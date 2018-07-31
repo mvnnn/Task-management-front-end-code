@@ -5,16 +5,12 @@ import flow from 'lodash/flow';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/projectActions';
-
-import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
-// const style = {
-// 	backgroundColor: 'white',
-// 	cursor: 'move'
-// };
+import TaskCardComponent from '../components/task/card/taskCard';
 
 export class Card extends Component {
   constructor(props) {
    super(props);
+   this.changeStatus=this.changeStatus.bind(this);
   }
 
   changeStatus(value, oldStatus){
@@ -24,75 +20,15 @@ export class Card extends Component {
   }
 
 	render() {
-		const { card, isDragging, connectDragSource, connectDropTarget } = this.props;
-		// const opacity = isDragging ? 0 : 1;
+		const { connectDragSource, connectDropTarget } = this.props;
 
-    let Color = "#00b386";
-
-    if(card.status === "Done"){
-      Color = "#00b386";
-    }
-    else if(card.status === "On Hold"){
-      Color = "#ff9900";
-    }
-    else if(card.status === "In Process"){
-      Color = "#00cc00";
-    }
-    else if(card.status === "Sent"){
-      Color = "#9900ff";
-    }
-    else if(card.status === "Schedule"){
-      Color = "#ff0066";
-    }
-
-    const cardStyle = {
-      boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-      transition: '0.3s',
-      textAlign: 'center',
-      width: '100%',
-      backgroundColor: '#f2f2f2',
-      borderLeft : `2px solid ${Color}`
-    };
-
-    const statusButton = {
-      backgroundColor: `${Color}`,
-      color: 'white',
-      borderRadius: '30px',
-      fontSize: '80%'
-    };
-
-    const buttonBackground = {
-      position: 'relative',
-      marginTop: '6px'
-    };
-
-    const styleGrid = {
-      margin: '5%',
-      padding: '5%',
-      textAlign: 'left',
-    };
 
 		return connectDragSource(connectDropTarget(
-      <div style={cardStyle}>
-      <div style={styleGrid}>
-        <div style={{display: 'flex'}}>
-        <div>
-        <h6 style={{color:'black', fontSize:'bold'}}>{card.task_title} </h6>
-        </div>
-        <div style={{paddingLeft:'10px'}}>
-        <ButtonToolbar style={buttonBackground}>
-          <DropdownButton style={statusButton} bsStyle={statusButton} bsSize="xsmall" title={card.status} id="dropdown-size-extra-small" >
-            <MenuItem eventKey="1" onSelect={() => this.changeStatus("Done", card.status)}>Done</MenuItem>
-            <MenuItem eventKey="2" onSelect={() => this.changeStatus("On Hold", card.status)}>On Hold</MenuItem>
-            <MenuItem eventKey="3" onSelect={() => this.changeStatus("In Process", card.status)}>In Process</MenuItem>
-            <MenuItem eventKey="4" onSelect={() => this.changeStatus("Sent", card.status)}>Sent</MenuItem>
-            <MenuItem eventKey="5" onSelect={() => this.changeStatus("Schedule", card.status)}>Schedule</MenuItem>
-          </DropdownButton>
-        </ButtonToolbar>
-        </div>
-      </div>
-
-        <div style={{fontSize:'10'}}>{card.task_description}</div></div>
+      <div>
+      <TaskCardComponent
+      card={this.props.card}
+      changeStatus={this.changeStatus}
+      />
       </div>
 		));
 	}
@@ -169,10 +105,8 @@ const cardTarget = {
 	}
 };
 
-function mapStateToProps(state, ownProps) {
-    return {
-      projects: state.projects
-    }
+function mapStateToProps(state) {
+    return {}
 }
 
 function mapDispatchToProps(dispatch) {
